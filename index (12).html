@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mes Boutiques — Dakar</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --vert: #0F6E56;
+    --vert-light: #E8F5F1;
+    --vert-mid: #1a9b77;
+    --bleu: #185FA5;
+    --bleu-light: #EBF2FB;
+    --fond: #F7F5F0;
+    --blanc: #FFFFFF;
+    --gris-10: #F2F0EB;
+    --gris-20: #E2DED7;
+    --gris-40: #B8B3AA;
+    --gris-60: #7A756E;
+    --gris-80: #3D3A35;
+    --noir: #1A1814;
+    --rouge: #D93025;
+    --rouge-light: #FDECEA;
+    --orange: #E8820C;
+    --orange-light: #FEF3E2;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    --shadow-md: 0 4px 24px rgba(0,0,0,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--fond);
+    color: var(--gris-80);
+    font-size: 15px;
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+
+  /* ── LOGIN ── */
+  #login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--fond);
+    padding: 24px;
+  }
+
+  .login-card {
+    background: var(--blanc);
+    border-radius: 20px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .login-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .login-logo svg { width: 40px; height: 40px; }
+
+  .login-logo-text h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--noir);
+    line-height: 1.1;
+  }
+
+  .login-logo-text span {
+    font-size: 12px;
+    color: var(--gris-60);
+    font-weight: 400;
+  }
+
+  .login-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--gris-80);
+    margin-bottom: 24px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gris-60);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--gris-20);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--gris-80);
+    background: var(--blanc);
+    transition: border-color 0.15s;
+    outline: none;
+  }
+
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--vert);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 20px;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+  }
+
+  .btn-primary {
+    background: var(--vert);
+    color: #fff;
+    width: 100%;
+    padding: 13px;
+  }
+
+  .btn-primary:hover { background: #0a5a44; }
+
+  .btn-secondary {
+    background: var(--gris-10);
+    color: var(--gris-80);
+  }
+
+  .btn-secondary:hover { background: var(--gris-20); }
+
+  .btn-danger {
+    background: var(--rouge-light);
+    color: var(--rouge);
+  }
+
+  .btn-danger:hover { background: #f9d0cc; }
+
+  .btn-sm { padding: 7px 13px; font-size: 13px; }
+
+  .login-error {
+    background: var(--rouge-light);
+    color: var(--rouge);
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+  }
+
+  /* ── APP LAYOUT ── */
+  #app { display: none; min-height: 100vh; }
+
+  .topbar {
+    background: var(--blanc);
+    border-bottom: 1px solid var(--gris-20);
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .topbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .topbar-logo svg { width: 32px; height: 32px; }
+
+  .topbar-logo-text {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--noir);
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .user-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gris-10);
+    padding: 6px 12px 6px 8px;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gris-80);
+  }
+
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .avatar-patron { background: var(--vert); }
+  .avatar-gerant { background: var(--bleu); }
+
+  .btn-logout {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gris-60);
+    padding: 6px;
+    border-radius: 6px;
+    transition: color 0.15s;
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-logout:hover { color: var(--rouge); }
+
+  .layout {
+    display: flex;
+    min-height: calc(100vh - 64px);
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: 220px;
+    background: var(--blanc);
+    border-right: 1px solid var(--gris-20);
+    padding: 20px 0;
+    flex-shrink: 0;
+    position: sticky;
+    top: 64px;
+    height: calc(100vh - 64px);
+    overflow-y: auto;
+  }
+
+  .nav-section-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gris-40);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0 20px;
+    margin: 16px 0 6px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    color: var(--gris-60);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.12s;
+    border-left: 3px solid transparent;
+    user-select: none;
+  }
+
+  .nav-item:hover { background: var(--gris-10); color: var(--gris-80); }
+
+  .nav-item.active {
+    background: var(--vert-light);
+    color: var(--vert);
+    border-left-color: var(--vert);
+    font-weight: 600;
+  }
+
+  .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  /* ── MAIN ── */
+  .main {
+    flex: 1;
+    padding: 28px;
+    max-width: 1100px;
+    overflow-x: hidden;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .page-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--noir);
+  }
+
+  .page-sub {
+    font-size: 14px;
+    color: var(--gris-60);
+    margin-top: 2px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--blanc);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    background: var(--blanc);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-40);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--noir);
+    line-height: 1;
+  }
+
+  .stat-value.vert { color: var(--vert); }
+  .stat-value.bleu { color: var(--bleu); }
+
+  .stat-sub {
+    font-size: 13px;
+    color: var(--gris-60);
+    margin-top: 6px;
+  }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    background: var(--blanc);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  thead th {
+    background: var(--gris-10);
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gris-60);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  tbody tr { border-top: 1px solid var(--gris-10); }
+  tbody tr:hover { background: var(--gris-10); }
+
+  tbody td {
+    padding: 12px 16px;
+    color: var(--gris-80);
+    vertical-align: middle;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .badge-vert { background: var(--vert-light); color: var(--vert); }
+  .badge-bleu { background: var(--bleu-light); color: var(--bleu); }
+  .badge-rouge { background: var(--rouge-light); color: var(--rouge); }
+  .badge-orange { background: var(--orange-light); color: var(--orange); }
+  .badge-gris { background: var(--gris-10); color: var(--gris-60); }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .filter-bar select, .filter-bar input {
+    padding: 9px 13px;
+    border: 1.5px solid var(--gris-20);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--gris-80);
+    background: var(--blanc);
+    outline: none;
+    min-width: 160px;
+  }
+
+  .filter-bar select:focus, .filter-bar input:focus { border-color: var(--vert); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 16px;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--blanc);
+    border-radius: 18px;
+    padding: 32px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 8px 48px rgba(0,0,0,0.18);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--noir);
+    margin-bottom: 20px;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+
+  /* ── ALERTS ── */
+  .alert {
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .alert-rouge { background: var(--rouge-light); color: var(--rouge); }
+  .alert-orange { background: var(--orange-light); color: var(--orange); }
+  .alert-vert { background: var(--vert-light); color: var(--vert); }
+
+  /* ── BOUTIQUE CARDS ── */
+  .boutiques-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .boutique-card {
+    background: var(--blanc);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 2px solid transparent;
+  }
+
+  .boutique-card:hover { border-color: var(--vert-light); box-shadow: var(--shadow-md); }
+  .boutique-card.selected { border-color: var(--vert); }
+
+  .boutique-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--vert-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  .boutique-card-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--noir);
+    margin-bottom: 4px;
+  }
+
+  .boutique-card-meta {
+    font-size: 13px;
+    color: var(--gris-60);
+  }
+
+  /* ── LOADING ── */
+  .spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid var(--gris-20);
+    border-top-color: var(--vert);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 40px auto;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-state {
+    text-align: center;
+    padding: 48px 0;
+    color: var(--gris-60);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 48px 0;
+    color: var(--gris-60);
+    font-size: 14px;
+  }
+
+  .empty-state svg {
+    width: 48px;
+    height: 48px;
+    color: var(--gris-20);
+    margin-bottom: 12px;
+  }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--noir);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 9999;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.25s;
+    max-width: 320px;
+  }
+
+  #toast.show { transform: translateY(0); opacity: 1; }
+  #toast.success { background: var(--vert); }
+  #toast.error { background: var(--rouge); }
+
+  /* ── DASHBOARD SPECIFICS ── */
+  .dash-boutique-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .dash-boutique-card {
+    background: var(--blanc);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .dash-boutique-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .dash-boutique-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--noir);
+  }
+
+  .dash-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-top: 1px solid var(--gris-10);
+  }
+
+  .dash-metric-label { font-size: 13px; color: var(--gris-60); }
+  .dash-metric-val { font-size: 15px; font-weight: 700; color: var(--gris-80); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+
+    .main { padding: 16px; }
+
+    .topbar { padding: 0 16px; }
+
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+
+    .login-card { padding: 32px 24px; }
+
+    .modal { padding: 24px; }
+
+    .page-header { flex-direction: column; align-items: flex-start; }
+
+    .mobile-nav {
+      display: flex !important;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--blanc);
+      border-top: 1px solid var(--gris-20);
+      z-index: 100;
+      padding: 0;
+    }
+
+    .mobile-nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 0;
+      cursor: pointer;
+      color: var(--gris-40);
+      font-size: 11px;
+      font-weight: 500;
+      transition: color 0.12s;
+    }
+
+    .mobile-nav-item.active { color: var(--vert); }
+    .mobile-nav-item svg { width: 20px; height: 20px; }
+
+    body { padding-bottom: 64px; }
+  }
+
+  .mobile-nav { display: none; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--gris-10);
+    margin: 20px 0;
+  }
+
+  /* ── STOCK BARS ── */
+  .stock-bar {
+    height: 6px;
+    background: var(--gris-10);
+    border-radius: 3px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+
+  .stock-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s;
+  }
+
+  .stock-bar-fill.ok { background: var(--vert); }
+  .stock-bar-fill.warn { background: var(--orange); }
+  .stock-bar-fill.crit { background: var(--rouge); }
+
+  .actions-col { display: flex; gap: 6px; }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--noir);
+    margin-bottom: 14px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="10" fill="#0F6E56"/>
+        <path d="M20 8L32 17V32H24V25H16V32H8V17L20 8Z" fill="white"/>
+        <rect x="16" y="19" width="8" height="6" rx="1" fill="#0F6E56" opacity="0.3"/>
+      </svg>
+      <div class="login-logo-text">
+        <h1>Mes Boutiques</h1>
+        <span>Gestion multi-boutiques · Dakar</span>
+      </div>
+    </div>
+    <p class="login-title">Connexion</p>
+    <div class="form-group">
+      <label>Identifiant</label>
+      <input type="text" id="login-id" placeholder="patron / plateau / parcelles / pikine" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>Mot de passe</label>
+      <input type="password" id="login-pw" placeholder="Mot de passe" autocomplete="current-password">
+    </div>
+    <button class="btn btn-primary" onclick="doLogin()">Se connecter</button>
+    <div class="login-error" id="login-error">Identifiant ou mot de passe incorrect.</div>
+  </div>
+</div>
+
+<!-- ═══ APP ═══ -->
+<div id="app">
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="topbar-logo">
+      <svg viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="8" fill="#0F6E56"/>
+        <path d="M16 6L26 13V26H20V20H12V26H6V13L16 6Z" fill="white"/>
+      </svg>
+      <span class="topbar-logo-text">Mes Boutiques</span>
+    </div>
+    <div class="topbar-right">
+      <div class="user-badge">
+        <div class="user-avatar" id="user-avatar-top">P</div>
+        <span id="user-name-top">Patron</span>
+      </div>
+      <button class="btn-logout" onclick="doLogout()" title="Déconnexion">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="nav-section-label">Navigation</div>
+      <div class="nav-item active" onclick="showPage('dashboard')" id="nav-dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Tableau de bord
+      </div>
+      <div class="nav-item" onclick="showPage('ventes')" id="nav-ventes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Ventes
+      </div>
+      <div class="nav-item" onclick="showPage('stock')" id="nav-stock">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        Stock
+      </div>
+      <div class="nav-item" onclick="showPage('employes')" id="nav-employes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Employés
+      </div>
+      <div class="nav-item" onclick="showPage('salaires')" id="nav-salaires">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        Salaires
+      </div>
+      <div class="nav-item patron-only" onclick="showPage('boutiques')" id="nav-boutiques" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Boutiques
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main" id="main-content">
+
+      <!-- ── DASHBOARD ── -->
+      <div class="page active" id="page-dashboard">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Tableau de bord</div>
+            <div class="page-sub" id="dash-date"></div>
+          </div>
+          <div class="filter-bar" style="margin:0">
+            <select id="dash-boutique-filter" onchange="loadDashboard()">
+              <option value="">Toutes les boutiques</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="dash-alerts"></div>
+
+        <div class="stats-grid" id="dash-stats">
+          <div class="loading-state"><div class="spinner"></div></div>
+        </div>
+
+        <div id="dash-boutiques-grid"></div>
+      </div>
+
+      <!-- ── VENTES ── -->
+      <div class="page" id="page-ventes">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Ventes</div>
+            <div class="page-sub">Enregistrement et suivi journalier</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modal-vente')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Enregistrer une vente
+          </button>
+        </div>
+        <div class="filter-bar">
+          <select id="ventes-boutique-filter" onchange="loadVentes()">
+            <option value="">Toutes les boutiques</option>
+          </select>
+          <input type="date" id="ventes-date-filter" onchange="loadVentes()">
+        </div>
+        <div id="ventes-content"><div class="loading-state"><div class="spinner"></div></div></div>
+      </div>
+
+      <!-- ── STOCK ── -->
+      <div class="page" id="page-stock">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Stock</div>
+            <div class="page-sub">Niveaux de stock et alertes</div>
+          </div>
+          <button class="btn btn-primary btn-sm patron-only" onclick="openModal('modal-stock')" id="btn-add-stock">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Ajouter un produit
+          </button>
+        </div>
+        <div class="filter-bar">
+          <select id="stock-boutique-filter" onchange="loadStock()">
+            <option value="">Toutes les boutiques</option>
+          </select>
+          <select id="stock-alerte-filter" onchange="loadStock()">
+            <option value="">Tous les niveaux</option>
+            <option value="rupture">Rupture</option>
+            <option value="faible">Stock faible</option>
+            <option value="ok">Stock OK</option>
+          </select>
+        </div>
+        <div id="stock-content"><div class="loading-state"><div class="spinner"></div></div></div>
+      </div>
+
+      <!-- ── EMPLOYES ── -->
+      <div class="page" id="page-employes">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Employés</div>
+            <div class="page-sub">Équipes par boutique</div>
+          </div>
+          <button class="btn btn-primary btn-sm patron-only" onclick="openModal('modal-employe')" id="btn-add-employe">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Ajouter un employé
+          </button>
+        </div>
+        <div class="filter-bar">
+          <select id="emp-boutique-filter" onchange="loadEmployes()">
+            <option value="">Toutes les boutiques</option>
+          </select>
+        </div>
+        <div id="employes-content"><div class="loading-state"><div class="spinner"></div></div></div>
+      </div>
+
+      <!-- ── SALAIRES ── -->
+      <div class="page" id="page-salaires">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Salaires</div>
+            <div class="page-sub">Récapitulatif mensuel des rémunérations</div>
+          </div>
+        </div>
+        <div class="filter-bar">
+          <select id="sal-boutique-filter" onchange="loadSalaires()">
+            <option value="">Toutes les boutiques</option>
+          </select>
+          <select id="sal-mois-filter" onchange="loadSalaires()">
+          </select>
+        </div>
+        <div id="salaires-content"><div class="loading-state"><div class="spinner"></div></div></div>
+      </div>
+
+      <!-- ── BOUTIQUES (patron only) ── -->
+      <div class="page" id="page-boutiques">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Boutiques</div>
+            <div class="page-sub">Gestion des points de vente</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modal-boutique')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Ajouter une boutique
+          </button>
+        </div>
+        <div id="boutiques-content"><div class="loading-state"><div class="spinner"></div></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav-item active" onclick="showPage('dashboard')" id="mnav-dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Tableau
+    </div>
+    <div class="mobile-nav-item" onclick="showPage('ventes')" id="mnav-ventes">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Ventes
+    </div>
+    <div class="mobile-nav-item" onclick="showPage('stock')" id="mnav-stock">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      Stock
+    </div>
+    <div class="mobile-nav-item" onclick="showPage('employes')" id="mnav-employes">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      Équipe
+    </div>
+    <div class="mobile-nav-item" onclick="showPage('salaires')" id="mnav-salaires">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      Salaires
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODALS ══════════ -->
+
+<!-- Vente -->
+<div class="modal-overlay" id="modal-vente">
+  <div class="modal">
+    <div class="modal-title">Enregistrer une vente</div>
+    <input type="hidden" id="vente-id">
+    <div class="form-group">
+      <label>Boutique</label>
+      <select id="vente-boutique"></select>
+    </div>
+    <div class="form-group">
+      <label>Date</label>
+      <input type="date" id="vente-date">
+    </div>
+    <div class="form-group">
+      <label>Montant (FCFA)</label>
+      <input type="number" id="vente-montant" placeholder="0" min="0">
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <input type="text" id="vente-desc" placeholder="Produits vendus, référence...">
+    </div>
+    <div class="form-group">
+      <label>Employé responsable</label>
+      <select id="vente-employe">
+        <option value="">— Sélectionner —</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-vente')">Annuler</button>
+      <button class="btn btn-primary" onclick="saveVente()" style="width:auto">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Stock -->
+<div class="modal-overlay" id="modal-stock">
+  <div class="modal">
+    <div class="modal-title" id="modal-stock-title">Ajouter un produit</div>
+    <input type="hidden" id="stock-id">
+    <div class="form-group">
+      <label>Boutique</label>
+      <select id="stock-boutique"></select>
+    </div>
+    <div class="form-group">
+      <label>Nom du produit</label>
+      <input type="text" id="stock-produit" placeholder="Ex : Riz 25kg">
+    </div>
+    <div class="form-group">
+      <label>Quantité actuelle</label>
+      <input type="number" id="stock-quantite" placeholder="0" min="0">
+    </div>
+    <div class="form-group">
+      <label>Seuil d'alerte faible</label>
+      <input type="number" id="stock-seuil" placeholder="5" min="0">
+    </div>
+    <div class="form-group">
+      <label>Unité</label>
+      <input type="text" id="stock-unite" placeholder="kg, sac, pièce...">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-stock')">Annuler</button>
+      <button class="btn btn-primary" onclick="saveStock()" style="width:auto">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Employé -->
+<div class="modal-overlay" id="modal-employe">
+  <div class="modal">
+    <div class="modal-title" id="modal-emp-title">Ajouter un employé</div>
+    <input type="hidden" id="emp-id">
+    <div class="form-group">
+      <label>Boutique</label>
+      <select id="emp-boutique"></select>
+    </div>
+    <div class="form-group">
+      <label>Nom complet</label>
+      <input type="text" id="emp-nom" placeholder="Prénom Nom">
+    </div>
+    <div class="form-group">
+      <label>Poste</label>
+      <input type="text" id="emp-poste" placeholder="Vendeur, Gérant, Caissier...">
+    </div>
+    <div class="form-group">
+      <label>Salaire fixe mensuel (FCFA)</label>
+      <input type="number" id="emp-salaire" placeholder="0" min="0">
+    </div>
+    <div class="form-group">
+      <label>Commission (%)</label>
+      <input type="number" id="emp-commission" placeholder="0" min="0" max="100" step="0.5">
+    </div>
+    <div class="form-group">
+      <label>Téléphone</label>
+      <input type="text" id="emp-tel" placeholder="+221 7X XXX XX XX">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-employe')">Annuler</button>
+      <button class="btn btn-primary" onclick="saveEmploye()" style="width:auto">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Boutique -->
+<div class="modal-overlay" id="modal-boutique">
+  <div class="modal">
+    <div class="modal-title" id="modal-bout-title">Ajouter une boutique</div>
+    <input type="hidden" id="bout-id">
+    <div class="form-group">
+      <label>Nom de la boutique</label>
+      <input type="text" id="bout-nom" placeholder="Ex : Boutique Plateau">
+    </div>
+    <div class="form-group">
+      <label>Quartier / Zone</label>
+      <input type="text" id="bout-quartier" placeholder="Plateau, Parcelles, Pikine...">
+    </div>
+    <div class="form-group">
+      <label>Adresse</label>
+      <input type="text" id="bout-adresse" placeholder="Rue, avenue...">
+    </div>
+    <div class="form-group">
+      <label>Téléphone</label>
+      <input type="text" id="bout-tel" placeholder="+221 3X XXX XX XX">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-boutique')">Annuler</button>
+      <button class="btn btn-primary" onclick="saveBoutique()" style="width:auto">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm delete -->
+<div class="modal-overlay" id="modal-confirm">
+  <div class="modal" style="max-width:360px">
+    <div class="modal-title">Confirmer la suppression</div>
+    <p style="color:var(--gris-60);font-size:14px;margin-bottom:8px" id="confirm-msg">Cette action est irréversible.</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-confirm')">Annuler</button>
+      <button class="btn btn-danger" onclick="confirmDeleteAction()" style="width:auto">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════
+const SUPABASE_URL = 'https://bemwpomukujtncvratnt.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJlbXdwb211a3VqdG5jdnJhdG50Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk4MDIxMzgsImV4cCI6MjA2NTM3ODEzOH0.K0v4vbpFk_O42Jyp2vZFenQ-JT_1eT-w1T_RhPKDj2I';
+
+const COMPTES = {
+  'patron':    { password: 'Patron@Dakar2024!', role: 'patron', nom: 'Le Patron', boutique_id: null },
+  'plateau':   { password: 'Plateau@2024Sec!', role: 'gerant', nom: 'Gérant Plateau', boutique_slug: 'plateau' },
+  'parcelles': { password: 'Parcelles@2024!', role: 'gerant', nom: 'Gérant Parcelles', boutique_slug: 'parcelles' },
+  'pikine':    { password: 'Pikine@2024Sec!',  role: 'gerant', nom: 'Gérant Pikine', boutique_slug: 'pikine' },
+};
+
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let currentUser = null;
+let boutiques = [];
+let deleteCallback = null;
+let currentPage = 'dashboard';
+
+// ═══════════════════════════════════════════
+// SUPABASE HELPERS
+// ═══════════════════════════════════════════
+async function sbFetch(table, params = '') {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}${params}`, {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+    }
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+async function sbInsert(table, data) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation',
+    },
+    body: JSON.stringify(data)
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+async function sbUpdate(table, id, data) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
+    method: 'PATCH',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation',
+    },
+    body: JSON.stringify(data)
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+async function sbDelete(table, id) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
+    method: 'DELETE',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+    }
+  });
+  if (!res.ok) throw new Error(await res.text());
+}
+
+// ═══════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════
+async function doLogin() {
+  const id = document.getElementById('login-id').value.trim().toLowerCase();
+  const pw = document.getElementById('login-pw').value;
+  const errEl = document.getElementById('login-error');
+  errEl.style.display = 'none';
+
+  const compte = COMPTES[id];
+  if (!compte || compte.password !== pw) {
+    errEl.style.display = 'block';
+    return;
+  }
+
+  currentUser = { id, ...compte };
+
+  // If gérant, resolve boutique_id
+  if (currentUser.role === 'gerant') {
+    try {
+      const bouts = await sbFetch('boutiques', `?slug=eq.${currentUser.boutique_slug}&select=id,nom`);
+      if (bouts.length > 0) {
+        currentUser.boutique_id = bouts[0].id;
+        currentUser.boutique_nom = bouts[0].nom;
+      }
+    } catch(e) {
+      // boutique might not exist yet, proceed
+    }
+  }
+
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  initApp();
+}
+
+function doLogout() {
+  currentUser = null;
+  boutiques = [];
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('login-id').value = '';
+  document.getElementById('login-pw').value = '';
+}
+
+document.getElementById('login-pw').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+// ═══════════════════════════════════════════
+// APP INIT
+// ═══════════════════════════════════════════
+async function initApp() {
+  // User badge
+  const avatar = document.getElementById('user-avatar-top');
+  avatar.textContent = currentUser.nom.charAt(0).toUpperCase();
+  avatar.className = 'user-avatar ' + (currentUser.role === 'patron' ? 'avatar-patron' : 'avatar-gerant');
+  document.getElementById('user-name-top').textContent = currentUser.nom;
+
+  // Patron-only nav
+  const patronEls = document.querySelectorAll('.patron-only');
+  patronEls.forEach(el => {
+    el.style.display = currentUser.role === 'patron' ? 'flex' : 'none';
+  });
+
+  // Date
+  const now = new Date();
+  document.getElementById('dash-date').textContent = now.toLocaleDateString('fr-FR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+  // Mois filter pour salaires
+  const moisSel = document.getElementById('sal-mois-filter');
+  moisSel.innerHTML = '';
+  for (let i = 0; i < 12; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const val = d.toISOString().slice(0, 7);
+    const label = d.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+    moisSel.innerHTML += `<option value="${val}">${label.charAt(0).toUpperCase() + label.slice(1)}</option>`;
+  }
+
+  // Load boutiques
+  await loadBoutiques();
+  populateBoutiqueSelects();
+
+  // Default date filter for ventes
+  document.getElementById('ventes-date-filter').value = now.toISOString().slice(0, 10);
+
+  showPage('dashboard');
+}
+
+async function loadBoutiques() {
+  try {
+    if (currentUser.role === 'patron') {
+      boutiques = await sbFetch('boutiques', '?select=*&order=nom');
+    } else {
+      boutiques = await sbFetch('boutiques', `?id=eq.${currentUser.boutique_id}&select=*`);
+    }
+  } catch(e) {
+    boutiques = [];
+  }
+}
+
+function populateBoutiqueSelects() {
+  const selects = ['dash-boutique-filter','ventes-boutique-filter','stock-boutique-filter',
+                   'emp-boutique-filter','sal-boutique-filter',
+                   'vente-boutique','stock-boutique','emp-boutique','bout-id'];
+  
+  // Filter bar selects (with "Toutes" option)
+  ['dash-boutique-filter','ventes-boutique-filter','stock-boutique-filter','emp-boutique-filter','sal-boutique-filter'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = currentUser.role === 'patron'
+      ? '<option value="">Toutes les boutiques</option>'
+      : '';
+    boutiques.forEach(b => {
+      el.innerHTML += `<option value="${b.id}">${b.nom}</option>`;
+    });
+    if (currentUser.role === 'gerant' && boutiques.length > 0) {
+      el.value = boutiques[0].id;
+    }
+  });
+
+  // Modal selects
+  ['vente-boutique','stock-boutique','emp-boutique'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = '';
+    boutiques.forEach(b => {
+      el.innerHTML += `<option value="${b.id}">${b.nom}</option>`;
+    });
+    if (currentUser.role === 'gerant' && boutiques.length > 0) {
+      el.value = boutiques[0].id;
+      el.disabled = true;
+    } else {
+      el.disabled = false;
+    }
+  });
+}
+
+// ═══════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════
+function showPage(page) {
+  currentPage = page;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
+
+  document.getElementById('page-' + page).classList.add('active');
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
+  const mnavEl = document.getElementById('mnav-' + page);
+  if (mnavEl) mnavEl.classList.add('active');
+
+  // Load data
+  if (page === 'dashboard') loadDashboard();
+  else if (page === 'ventes') loadVentes();
+  else if (page === 'stock') loadStock();
+  else if (page === 'employes') loadEmployes();
+  else if (page === 'salaires') loadSalaires();
+  else if (page === 'boutiques') loadBoutiquesPage();
+}
+
+// ═══════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════
+async function loadDashboard() {
+  const boutiqueId = document.getElementById('dash-boutique-filter').value;
+  const statsEl = document.getElementById('dash-stats');
+  const alertsEl = document.getElementById('dash-alerts');
+  const gridEl = document.getElementById('dash-boutiques-grid');
+
+  statsEl.innerHTML = '<div class="loading-state"><div class="spinner"></div></div>';
+  alertsEl.innerHTML = '';
+  gridEl.innerHTML = '';
+
+  try {
+    const today = new Date().toISOString().slice(0,10);
+    const firstOfMonth = new Date();
+    firstOfMonth.setDate(1);
+    const fom = firstOfMonth.toISOString().slice(0,10);
+
+    // Filter boutiques
+    let bouts = boutiqueId ? boutiques.filter(b => b.id == boutiqueId) : boutiques;
+
+    // Fetch ventes du mois
+    let ventesParams = `?select=*&date=gte.${fom}&order=date.desc`;
+    if (boutiqueId) ventesParams += `&boutique_id=eq.${boutiqueId}`;
+    else if (currentUser.role === 'gerant') ventesParams += `&boutique_id=eq.${currentUser.boutique_id}`;
+
+    // Fetch stock
+    let stockParams = `?select=*`;
+    if (boutiqueId) stockParams += `&boutique_id=eq.${boutiqueId}`;
+    else if (currentUser.role === 'gerant') stockParams += `&boutique_id=eq.${currentUser.boutique_id}`;
+
+    // Fetch employés
+    let empParams = `?select=*`;
+    if (boutiqueId) empParams += `&boutique_id=eq.${boutiqueId}`;
+    else if (currentUser.role === 'gerant') empParams += `&boutique_id=eq.${currentUser.boutique_id}`;
+
+    const [ventes, stocks, employes] = await Promise.all([
+      sbFetch('ventes', ventesParams),
+      sbFetch('stock', stockParams),
+      sbFetch('employes', empParams),
+    ]);
+
+    // Calc global stats
+    const totalMois = ventes.reduce((s, v) => s + (parseFloat(v.montant) || 0), 0);
+    const ventesToday = ventes.filter(v => v.date === today);
+    const totalAujourd = ventesToday.reduce((s, v) => s + (parseFloat(v.montant) || 0), 0);
+    const masseSalariale = employes.reduce((s, e) => s + (parseFloat(e.salaire_fixe) || 0), 0);
+
+    const ruptures = stocks.filter(s => (parseInt(s.quantite) || 0) <= 0);
+    const faubles = stocks.filter(s => {
+      const q = parseInt(s.quantite) || 0;
+      const seuil = parseInt(s.seuil_alerte) || 5;
+      return q > 0 && q <= seuil;
+    });
+
+    // Stats
+    statsEl.innerHTML = `
+      <div class="stat-card">
+        <div class="stat-label">Ventes aujourd'hui</div>
+        <div class="stat-value vert">${fmtFcfa(totalAujourd)}</div>
+        <div class="stat-sub">${ventesToday.length} transaction${ventesToday.length > 1 ? 's' : ''}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Ventes ce mois</div>
+        <div class="stat-value">${fmtFcfa(totalMois)}</div>
+        <div class="stat-sub">${ventes.length} transaction${ventes.length > 1 ? 's' : ''}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Employés actifs</div>
+        <div class="stat-value bleu">${employes.length}</div>
+        <div class="stat-sub">Masse salariale : ${fmtFcfa(masseSalariale)}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Alertes stock</div>
+        <div class="stat-value" style="color:${ruptures.length > 0 ? 'var(--rouge)' : faubles.length > 0 ? 'var(--orange)' : 'var(--vert)'}">${ruptures.length + faubles.length}</div>
+        <div class="stat-sub">${ruptures.length} rupture${ruptures.length > 1 ? 's' : ''}, ${faubles.length} faible${faubles.length > 1 ? 's' : ''}</div>
+      </div>
+    `;
+
+    // Alerts
+    let alertsHtml = '';
+    if (ruptures.length > 0) {
+      const names = ruptures.slice(0,3).map(s => s.produit).join(', ');
+      alertsHtml += `<div class="alert alert-rouge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div><strong>Rupture de stock</strong> — ${names}${ruptures.length > 3 ? ` +${ruptures.length-3} autres` : ''}</div>
+      </div>`;
+    }
+    if (faubles.length > 0) {
+      const names = faubles.slice(0,3).map(s => s.produit).join(', ');
+      alertsHtml += `<div class="alert alert-orange">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div><strong>Stock faible</strong> — ${names}${faubles.length > 3 ? ` +${faubles.length-3} autres` : ''}</div>
+      </div>`;
+    }
+    alertsEl.innerHTML = alertsHtml;
+
+    // Per-boutique grid
+    if (currentUser.role === 'patron') {
+      let gridHtml = `<div class="section-title" style="margin-bottom:14px">Par boutique — ce mois</div><div class="dash-boutique-row">`;
+      bouts.forEach(b => {
+        const bVentes = ventes.filter(v => v.boutique_id == b.id);
+        const bTotal = bVentes.reduce((s,v) => s + (parseFloat(v.montant)||0), 0);
+        const bEmp = employes.filter(e => e.boutique_id == b.id).length;
+        const bRuptures = stocks.filter(s => s.boutique_id == b.id && (parseInt(s.quantite)||0) <= 0).length;
+        gridHtml += `
+          <div class="dash-boutique-card">
+            <div class="dash-boutique-header">
+              <span class="dash-boutique-title">${b.nom}</span>
+              <span class="badge badge-gris">${b.quartier || ''}</span>
+            </div>
+            <div class="dash-metric">
+              <span class="dash-metric-label">Ventes du mois</span>
+              <span class="dash-metric-val" style="color:var(--vert)">${fmtFcfa(bTotal)}</span>
+            </div>
+            <div class="dash-metric">
+              <span class="dash-metric-label">Employés</span>
+              <span class="dash-metric-val">${bEmp}</span>
+            </div>
+            <div class="dash-metric">
+              <span class="dash-metric-label">Ruptures</span>
+              <span class="dash-metric-val" style="color:${bRuptures > 0 ? 'var(--rouge)' : 'var(--vert)'}">${bRuptures}</span>
+            </div>
+          </div>`;
+      });
+      gridHtml += '</div>';
+      gridEl.innerHTML = gridHtml;
+    }
+
+  } catch(e) {
+    statsEl.innerHTML = `<div class="alert alert-rouge">Erreur de chargement : ${e.message}</div>`;
+  }
+}
+
+// ═══════════════════════════════════════════
+// VENTES
+// ═══════════════════════════════════════════
+async function loadVentes() {
+  const boutiqueId = document.getElementById('ventes-boutique-filter').value;
+  const date = document.getElementById('ventes-date-filter').value;
+  const el = document.getElementById('ventes-content');
+  el.innerHTML = '<div class="loading-state"><div class="spinner"></div></div>';
+
+  try {
+    let params = '?select=*,boutiques(nom),employes(nom)&order=date.desc,created_at.desc';
+    if (boutiqueId) params += `&boutique_id=eq.${boutiqueId}`;
+    else if (currentUser.role === 'gerant') params += `&boutique_id=eq.${currentUser.boutique_id}`;
+    if (date) params += `&date=eq.${date}`;
+
+    const ventes = await sbFetch('ventes', params);
+    const total = ventes.reduce((s,v) => s + (parseFloat(v.montant)||0), 0);
+
+    if (ventes.length === 0) {
+      el.innerHTML = `<div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <p>Aucune vente enregistrée pour ces critères</p>
+      </div>`;
+      return;
+    }
+
+    let html = `
+      <div class="stats-grid" style="margin-bottom:16px">
+        <div class="stat-card"><div class="stat-label">Total filtré</div><div class="stat-value vert">${fmtFcfa(total)}</div></div>
+        <div class="stat-card"><div class="stat-label">Transactions</div><div class="stat-value">${ventes.length}</div></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Date</th>
+            ${currentUser.role === 'patron' ? '<th>Boutique</th>' : ''}
+            <th>Montant</th>
+            <th>Description</th>
+            <th>Employé</th>
+            <th>Actions</th>
+          </tr></thead>
+          <tbody>`;
+
+    ventes.forEach(v => {
+      html += `<tr>
+        <td>${fmtDate(v.date)}</td>
+        ${currentUser.role === 'patron' ? `<td><span class="badge badge-bleu">${v.boutiques?.nom || '—'}</span></td>` : ''}
+        <td><strong>${fmtFcfa(v.montant)}</strong></td>
+        <td>${v.description || '—'}</td>
+        <td>${v.employes?.nom || '—'}</td>
+        <td>
+          <div class="actions-col">
+            <button class="btn btn-secondary btn-sm" onclick="editVente(${v.id})">Modifier</button>
+            ${currentUser.role === 'patron' ? `<button class="btn btn-danger btn-sm" onclick="askDelete('vente', ${v.id}, 'Supprimer cette vente de ${fmtFcfa(v.montant)} ?')">Suppr.</button>` : ''}
+          </div>
+        </td>
+      </tr>`;
+    });
+
+    html += '</tbody></table></div>';
+    el.innerHTML = html;
+
+  } catch(e) {
+    el.innerHTML = `<div class="alert alert-rouge">Erreur : ${e.message}</div>`;
+  }
+}
+
+async function editVente(id) {
+  try {
+    const [v] = await sbFetch('ventes', `?id=eq.${id}&select=*`);
+    document.getElementById('vente-id').value = v.id;
+    document.getElementById('vente-boutique').value = v.boutique_id;
+    document.getElementById('vente-date').value = v.date;
+    document.getElementById('vente-montant').value = v.montant;
+    document.getElementById('vente-desc').value = v.description || '';
+    await populateVenteEmployes(v.boutique_id, v.employe_id);
+    openModal('modal-vente');
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+async function populateVenteEmployes(boutiqueId, selectedId) {
+  const sel = document.getElementById('vente-employe');
+  sel.innerHTML = '<option value="">— Sélectionner —</option>';
+  if (!boutiqueId) return;
+  try {
+    const emps = await sbFetch('employes', `?boutique_id=eq.${boutiqueId}&select=id,nom&order=nom`);
+    emps.forEach(e => {
+      sel.innerHTML += `<option value="${e.id}" ${e.id == selectedId ? 'selected' : ''}>${e.nom}</option>`;
+    });
+  } catch(e) {}
+}
+
+document.getElementById('vente-boutique').addEventListener('change', function() {
+  populateVenteEmployes(this.value, null);
+});
+
+async function saveVente() {
+  const id = document.getElementById('vente-id').value;
+  const data = {
+    boutique_id: document.getElementById('vente-boutique').value,
+    date: document.getElementById('vente-date').value,
+    montant: parseFloat(document.getElementById('vente-montant').value) || 0,
+    description: document.getElementById('vente-desc').value.trim(),
+    employe_id: document.getElementById('vente-employe').value || null,
+  };
+
+  if (!data.boutique_id || !data.date || !data.montant) {
+    showToast('Boutique, date et montant requis', 'error'); return;
+  }
+
+  try {
+    if (id) await sbUpdate('ventes', id, data);
+    else await sbInsert('ventes', data);
+    closeModal('modal-vente');
+    resetVenteForm();
+    showToast('Vente enregistrée', 'success');
+    loadVentes();
+    if (currentPage === 'dashboard') loadDashboard();
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+function resetVenteForm() {
+  document.getElementById('vente-id').value = '';
+  document.getElementById('vente-montant').value = '';
+  document.getElementById('vente-desc').value = '';
+  document.getElementById('vente-employe').innerHTML = '<option value="">— Sélectionner —</option>';
+  document.getElementById('vente-date').value = new Date().toISOString().slice(0,10);
+}
+
+// ═══════════════════════════════════════════
+// STOCK
+// ═══════════════════════════════════════════
+async function loadStock() {
+  const boutiqueId = document.getElementById('stock-boutique-filter').value;
+  const alerte = document.getElementById('stock-alerte-filter').value;
+  const el = document.getElementById('stock-content');
+  el.innerHTML = '<div class="loading-state"><div class="spinner"></div></div>';
+
+  try {
+    let params = '?select=*,boutiques(nom)&order=produit';
+    if (boutiqueId) params += `&boutique_id=eq.${boutiqueId}`;
+    else if (currentUser.role === 'gerant') params += `&boutique_id=eq.${currentUser.boutique_id}`;
+
+    let stocks = await sbFetch('stock', params);
+
+    // Filtre alerte
+    if (alerte === 'rupture') stocks = stocks.filter(s => (parseInt(s.quantite)||0) <= 0);
+    else if (alerte === 'faible') stocks = stocks.filter(s => { const q = parseInt(s.quantite)||0; return q > 0 && q <= (parseInt(s.seuil_alerte)||5); });
+    else if (alerte === 'ok') stocks = stocks.filter(s => (parseInt(s.quantite)||0) > (parseInt(s.seuil_alerte)||5));
+
+    if (stocks.length === 0) {
+      el.innerHTML = `<div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        <p>Aucun produit trouvé</p>
+      </div>`;
+      return;
+    }
+
+    let html = '<div class="table-wrap"><table><thead><tr>';
+    html += `<th>Produit</th>${currentUser.role === 'patron' ? '<th>Boutique</th>' : ''}<th>Quantité</th><th>Seuil</th><th>Statut</th><th>Actions</th>`;
+    html += '</tr></thead><tbody>';
+
+    stocks.forEach(s => {
+      const q = parseInt(s.quantite) || 0;
+      const seuil = parseInt(s.seuil_alerte) || 5;
+      const pct = seuil > 0 ? Math.min(100, Math.round(q / (seuil * 3) * 100)) : (q > 0 ? 100 : 0);
+      const statut = q <= 0 ? {label:'Rupture', cls:'badge-rouge', bar:'crit'}
+                   : q <= seuil ? {label:'Faible', cls:'badge-orange', bar:'warn'}
+                   : {label:'OK', cls:'badge-vert', bar:'ok'};
+
+      html += `<tr>
+        <td><strong>${s.produit}</strong>${s.unite ? `<span style="color:var(--gris-40);font-size:12px;margin-left:4px">(${s.unite})</span>` : ''}</td>
+        ${currentUser.role === 'patron' ? `<td><span class="badge badge-bleu">${s.boutiques?.nom || '—'}</span></td>` : ''}
+        <td>
+          <div>${q}</div>
+          <div class="stock-bar"><div class="stock-bar-fill ${statut.bar}" style="width:${pct}%"></div></div>
+        </td>
+        <td>${seuil}</td>
+        <td><span class="badge ${statut.cls}">${statut.label}</span></td>
+        <td>
+          <div class="actions-col">
+            ${currentUser.role === 'patron' ? `<button class="btn btn-secondary btn-sm" onclick="editStock(${s.id})">Modifier</button>
+            <button class="btn btn-danger btn-sm" onclick="askDelete('stock', ${s.id}, 'Supprimer ${s.produit} ?')">Suppr.</button>` : `<button class="btn btn-secondary btn-sm" disabled title="Accès gérant limité">—</button>`}
+          </div>
+        </td>
+      </tr>`;
+    });
+
+    html += '</tbody></table></div>';
+    el.innerHTML = html;
+
+  } catch(e) {
+    el.innerHTML = `<div class="alert alert-rouge">Erreur : ${e.message}</div>`;
+  }
+}
+
+async function editStock(id) {
+  if (currentUser.role !== 'patron') { showToast('Accès réservé au patron', 'error'); return; }
+  try {
+    const [s] = await sbFetch('stock', `?id=eq.${id}&select=*`);
+    document.getElementById('stock-id').value = s.id;
+    document.getElementById('modal-stock-title').textContent = 'Modifier le produit';
+    document.getElementById('stock-boutique').value = s.boutique_id;
+    document.getElementById('stock-produit').value = s.produit;
+    document.getElementById('stock-quantite').value = s.quantite;
+    document.getElementById('stock-seuil').value = s.seuil_alerte;
+    document.getElementById('stock-unite').value = s.unite || '';
+    openModal('modal-stock');
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+async function saveStock() {
+  if (currentUser.role !== 'patron') { showToast('Accès réservé au patron', 'error'); return; }
+  const id = document.getElementById('stock-id').value;
+  const data = {
+    boutique_id: document.getElementById('stock-boutique').value,
+    produit: document.getElementById('stock-produit').value.trim(),
+    quantite: parseInt(document.getElementById('stock-quantite').value) || 0,
+    seuil_alerte: parseInt(document.getElementById('stock-seuil').value) || 5,
+    unite: document.getElementById('stock-unite').value.trim() || null,
+  };
+
+  if (!data.boutique_id || !data.produit) {
+    showToast('Boutique et nom du produit requis', 'error'); return;
+  }
+
+  try {
+    if (id) await sbUpdate('stock', id, data);
+    else await sbInsert('stock', data);
+    closeModal('modal-stock');
+    resetStockForm();
+    showToast('Stock mis à jour', 'success');
+    loadStock();
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+function resetStockForm() {
+  document.getElementById('stock-id').value = '';
+  document.getElementById('modal-stock-title').textContent = 'Ajouter un produit';
+  document.getElementById('stock-produit').value = '';
+  document.getElementById('stock-quantite').value = '';
+  document.getElementById('stock-seuil').value = '';
+  document.getElementById('stock-unite').value = '';
+}
+
+// ═══════════════════════════════════════════
+// EMPLOYÉS
+// ═══════════════════════════════════════════
+async function loadEmployes() {
+  const boutiqueId = document.getElementById('emp-boutique-filter').value;
+  const el = document.getElementById('employes-content');
+  el.innerHTML = '<div class="loading-state"><div class="spinner"></div></div>';
+
+  try {
+    let params = '?select=*,boutiques(nom)&order=nom';
+    if (boutiqueId) params += `&boutique_id=eq.${boutiqueId}`;
+    else if (currentUser.role === 'gerant') params += `&boutique_id=eq.${currentUser.boutique_id}`;
+
+    const employes = await sbFetch('employes', params);
+
+    if (employes.length === 0) {
+      el.innerHTML = `<div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        <p>Aucun employé enregistré</p>
+      </div>`;
+      return;
+    }
+
+    let html = '<div class="table-wrap"><table><thead><tr>';
+    html += `<th>Nom</th><th>Poste</th>${currentUser.role === 'patron' ? '<th>Boutique</th>' : ''}<th>Salaire fixe</th><th>Commission</th><th>Téléphone</th><th>Actions</th>`;
+    html += '</tr></thead><tbody>';
+
+    employes.forEach(e => {
+      html += `<tr>
+        <td><strong>${e.nom}</strong></td>
+        <td><span class="badge badge-gris">${e.poste || '—'}</span></td>
+        ${currentUser.role === 'patron' ? `<td><span class="badge badge-bleu">${e.boutiques?.nom || '—'}</span></td>` : ''}
+        <td>${fmtFcfa(e.salaire_fixe)}</td>
+        <td>${e.commission ? e.commission + '%' : '—'}</td>
+        <td>${e.telephone || '—'}</td>
+        <td>
+          <div class="actions-col">
+            ${currentUser.role === 'patron' ? `
+              <button class="btn btn-secondary btn-sm" onclick="editEmploye(${e.id})">Modifier</button>
+              <button class="btn btn-danger btn-sm" onclick="askDelete('employe', ${e.id}, 'Supprimer ${e.nom} ?')">Suppr.</button>
+            ` : '<span style="font-size:12px;color:var(--gris-40)">Lecture seule</span>'}
+          </div>
+        </td>
+      </tr>`;
+    });
+
+    html += '</tbody></table></div>';
+    el.innerHTML = html;
+
+  } catch(e) {
+    el.innerHTML = `<div class="alert alert-rouge">Erreur : ${e.message}</div>`;
+  }
+}
+
+async function editEmploye(id) {
+  if (currentUser.role !== 'patron') return;
+  try {
+    const [e] = await sbFetch('employes', `?id=eq.${id}&select=*`);
+    document.getElementById('emp-id').value = e.id;
+    document.getElementById('modal-emp-title').textContent = 'Modifier un employé';
+    document.getElementById('emp-boutique').value = e.boutique_id;
+    document.getElementById('emp-nom').value = e.nom;
+    document.getElementById('emp-poste').value = e.poste || '';
+    document.getElementById('emp-salaire').value = e.salaire_fixe || '';
+    document.getElementById('emp-commission').value = e.commission || '';
+    document.getElementById('emp-tel').value = e.telephone || '';
+    openModal('modal-employe');
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+async function saveEmploye() {
+  if (currentUser.role !== 'patron') { showToast('Accès réservé au patron', 'error'); return; }
+  const id = document.getElementById('emp-id').value;
+  const data = {
+    boutique_id: document.getElementById('emp-boutique').value,
+    nom: document.getElementById('emp-nom').value.trim(),
+    poste: document.getElementById('emp-poste').value.trim() || null,
+    salaire_fixe: parseFloat(document.getElementById('emp-salaire').value) || 0,
+    commission: parseFloat(document.getElementById('emp-commission').value) || 0,
+    telephone: document.getElementById('emp-tel').value.trim() || null,
+  };
+
+  if (!data.boutique_id || !data.nom) {
+    showToast('Boutique et nom requis', 'error'); return;
+  }
+
+  try {
+    if (id) await sbUpdate('employes', id, data);
+    else await sbInsert('employes', data);
+    closeModal('modal-employe');
+    resetEmpForm();
+    showToast('Employé enregistré', 'success');
+    loadEmployes();
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+function resetEmpForm() {
+  document.getElementById('emp-id').value = '';
+  document.getElementById('modal-emp-title').textContent = 'Ajouter un employé';
+  ['emp-nom','emp-poste','emp-salaire','emp-commission','emp-tel'].forEach(id => document.getElementById(id).value = '');
+}
+
+// ═══════════════════════════════════════════
+// SALAIRES
+// ═══════════════════════════════════════════
+async function loadSalaires() {
+  const boutiqueId = document.getElementById('sal-boutique-filter').value;
+  const mois = document.getElementById('sal-mois-filter').value;
+  const el = document.getElementById('salaires-content');
+  el.innerHTML = '<div class="loading-state"><div class="spinner"></div></div>';
+
+  try {
+    // Employés
+    let empParams = '?select=*,boutiques(nom)&order=nom';
+    if (boutiqueId) empParams += `&boutique_id=eq.${boutiqueId}`;
+    else if (currentUser.role === 'gerant') empParams += `&boutique_id=eq.${currentUser.boutique_id}`;
+
+    // Ventes du mois
+    const debut = mois + '-01';
+    const fin = new Date(mois.split('-')[0], parseInt(mois.split('-')[1]), 0).toISOString().slice(0,10);
+    let ventesParams = `?select=*&date=gte.${debut}&date=lte.${fin}`;
+    if (boutiqueId) ventesParams += `&boutique_id=eq.${boutiqueId}`;
+    else if (currentUser.role === 'gerant') ventesParams += `&boutique_id=eq.${currentUser.boutique_id}`;
+
+    const [employes, ventes] = await Promise.all([
+      sbFetch('employes', empParams),
+      sbFetch('ventes', ventesParams),
+    ]);
+
+    const totalVentes = ventes.reduce((s,v) => s + (parseFloat(v.montant)||0), 0);
+
+    let html = `<div class="stats-grid" style="margin-bottom:16px">
+      <div class="stat-card"><div class="stat-label">CA du mois</div><div class="stat-value vert">${fmtFcfa(totalVentes)}</div></div>
+      <div class="stat-card"><div class="stat-label">Employés</div><div class="stat-value">${employes.length}</div></div>
+    </div>`;
+
+    if (employes.length === 0) {
+      el.innerHTML = html + `<div class="empty-state"><p>Aucun employé pour ce critère</p></div>`;
+      return;
+    }
+
+    // Group by boutique
+    const byBoutique = {};
+    employes.forEach(e => {
+      const bid = e.boutique_id;
+      if (!byBoutique[bid]) byBoutique[bid] = { nom: e.boutiques?.nom || 'Boutique', employes: [] };
+      byBoutique[bid].employes.push(e);
+    });
+
+    let masseTotale = 0;
+
+    Object.values(byBoutique).forEach(b => {
+      let masseB = 0;
+      let rows = '';
+
+      b.employes.forEach(e => {
+        const salaire = parseFloat(e.salaire_fixe) || 0;
+        const tauxCom = parseFloat(e.commission) || 0;
+        // Ventes de cet employé ce mois
+        const empVentes = ventes.filter(v => v.employe_id == e.id).reduce((s,v) => s+(parseFloat(v.montant)||0), 0);
+        const commission = Math.round(empVentes * tauxCom / 100);
+        const total = salaire + commission;
+        masseB += total;
+
+        rows += `<tr>
+          <td><strong>${e.nom}</strong></td>
+          <td><span class="badge badge-gris">${e.poste || '—'}</span></td>
+          <td>${fmtFcfa(salaire)}</td>
+          <td>${tauxCom > 0 ? tauxCom + '%' : '—'}</td>
+          <td>${tauxCom > 0 ? fmtFcfa(commission) : '—'}</td>
+          <td><strong>${fmtFcfa(total)}</strong></td>
+        </tr>`;
+      });
+
+      masseTotale += masseB;
+
+      html += `
+        <div class="card" style="margin-bottom:16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <span class="section-title" style="margin-bottom:0">${b.nom}</span>
+            <span class="badge badge-vert">Masse : ${fmtFcfa(masseB)}</span>
+          </div>
+          <div class="table-wrap" style="box-shadow:none;border-radius:8px;border:1px solid var(--gris-10)">
+            <table>
+              <thead><tr><th>Nom</th><th>Poste</th><th>Fixe</th><th>Taux com.</th><th>Commission</th><th>Total</th></tr></thead>
+              <tbody>${rows}</tbody>
+              <tfoot>
+                <tr style="background:var(--gris-10)">
+                  <td colspan="5" style="padding:10px 16px;font-weight:600;color:var(--gris-60)">Sous-total ${b.nom}</td>
+                  <td style="padding:10px 16px;font-weight:700;color:var(--vert)">${fmtFcfa(masseB)}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>`;
+    });
+
+    html += `<div class="card" style="display:flex;align-items:center;justify-content:space-between;background:var(--gris-80);color:#fff">
+      <span style="font-weight:600;font-size:15px">Masse salariale totale</span>
+      <span style="font-size:22px;font-weight:700;color:#7FFFD4">${fmtFcfa(masseTotale)}</span>
+    </div>`;
+
+    el.innerHTML = html;
+
+  } catch(e) {
+    el.innerHTML = `<div class="alert alert-rouge">Erreur : ${e.message}</div>`;
+  }
+}
+
+// ═══════════════════════════════════════════
+// BOUTIQUES PAGE
+// ═══════════════════════════════════════════
+async function loadBoutiquesPage() {
+  if (currentUser.role !== 'patron') return;
+  const el = document.getElementById('boutiques-content');
+  el.innerHTML = '<div class="loading-state"><div class="spinner"></div></div>';
+
+  try {
+    const bouts = await sbFetch('boutiques', '?select=*&order=nom');
+
+    if (bouts.length === 0) {
+      el.innerHTML = `<div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <p>Aucune boutique enregistrée</p>
+      </div>`;
+      return;
+    }
+
+    let html = '<div class="boutiques-grid">';
+    bouts.forEach(b => {
+      html += `
+        <div class="boutique-card">
+          <div class="boutique-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="boutique-card-name">${b.nom}</div>
+          <div class="boutique-card-meta">${b.quartier ? b.quartier + ' · ' : ''}${b.adresse || ''}</div>
+          ${b.telephone ? `<div class="boutique-card-meta" style="margin-top:4px">${b.telephone}</div>` : ''}
+          <div style="display:flex;gap:8px;margin-top:16px">
+            <button class="btn btn-secondary btn-sm" onclick="editBoutique(${b.id})">Modifier</button>
+            <button class="btn btn-danger btn-sm" onclick="askDelete('boutique', ${b.id}, 'Supprimer la boutique ${b.nom} ?')">Supprimer</button>
+          </div>
+        </div>`;
+    });
+    html += '</div>';
+    el.innerHTML = html;
+
+  } catch(e) {
+    el.innerHTML = `<div class="alert alert-rouge">Erreur : ${e.message}</div>`;
+  }
+}
+
+async function editBoutique(id) {
+  try {
+    const [b] = await sbFetch('boutiques', `?id=eq.${id}&select=*`);
+    document.getElementById('bout-id').value = b.id;
+    document.getElementById('modal-bout-title').textContent = 'Modifier la boutique';
+    document.getElementById('bout-nom').value = b.nom;
+    document.getElementById('bout-quartier').value = b.quartier || '';
+    document.getElementById('bout-adresse').value = b.adresse || '';
+    document.getElementById('bout-tel').value = b.telephone || '';
+    openModal('modal-boutique');
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+async function saveBoutique() {
+  const id = document.getElementById('bout-id').value;
+  const nom = document.getElementById('bout-nom').value.trim();
+  if (!nom) { showToast('Nom requis', 'error'); return; }
+
+  const data = {
+    nom,
+    quartier: document.getElementById('bout-quartier').value.trim() || null,
+    adresse: document.getElementById('bout-adresse').value.trim() || null,
+    telephone: document.getElementById('bout-tel').value.trim() || null,
+    slug: nom.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+  };
+
+  try {
+    if (id) await sbUpdate('boutiques', id, data);
+    else await sbInsert('boutiques', data);
+    closeModal('modal-boutique');
+    resetBoutiqueForm();
+    showToast('Boutique enregistrée', 'success');
+    await loadBoutiques();
+    populateBoutiqueSelects();
+    loadBoutiquesPage();
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+function resetBoutiqueForm() {
+  document.getElementById('bout-id').value = '';
+  document.getElementById('modal-bout-title').textContent = 'Ajouter une boutique';
+  ['bout-nom','bout-quartier','bout-adresse','bout-tel'].forEach(id => document.getElementById(id).value = '');
+}
+
+// ═══════════════════════════════════════════
+// DELETE
+// ═══════════════════════════════════════════
+function askDelete(type, id, msg) {
+  if (currentUser.role !== 'patron') { showToast('Accès réservé au patron', 'error'); return; }
+  document.getElementById('confirm-msg').textContent = msg || 'Cette action est irréversible.';
+  deleteCallback = async () => {
+    const tableMap = { vente: 'ventes', stock: 'stock', employe: 'employes', boutique: 'boutiques' };
+    await sbDelete(tableMap[type], id);
+    closeModal('modal-confirm');
+    showToast('Supprimé avec succès', 'success');
+    if (type === 'vente') loadVentes();
+    else if (type === 'stock') loadStock();
+    else if (type === 'employe') loadEmployes();
+    else if (type === 'boutique') { await loadBoutiques(); populateBoutiqueSelects(); loadBoutiquesPage(); }
+  };
+  openModal('modal-confirm');
+}
+
+async function confirmDeleteAction() {
+  if (deleteCallback) {
+    try { await deleteCallback(); }
+    catch(e) { showToast(e.message, 'error'); }
+    deleteCallback = null;
+  }
+}
+
+// ═══════════════════════════════════════════
+// MODAL HELPERS
+// ═══════════════════════════════════════════
+function openModal(id) {
+  // Pre-fill dates
+  if (id === 'modal-vente' && !document.getElementById('vente-id').value) {
+    document.getElementById('vente-date').value = new Date().toISOString().slice(0,10);
+    if (currentUser.role === 'gerant' && boutiques.length > 0) {
+      document.getElementById('vente-boutique').value = boutiques[0].id;
+      populateVenteEmployes(boutiques[0].id, null);
+    }
+  }
+  document.getElementById(id).classList.add('open');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// Close on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+});
+
+// ═══════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════
+function fmtFcfa(val) {
+  const n = parseFloat(val) || 0;
+  return new Intl.NumberFormat('fr-FR').format(Math.round(n)) + ' FCFA';
+}
+
+function fmtDate(dateStr) {
+  if (!dateStr) return '—';
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString('fr-FR', { day:'2-digit', month:'short', year:'numeric' });
+}
+
+function showToast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show ' + type;
+  setTimeout(() => { el.className = ''; }, 3000);
+}
+</script>
+</body>
+</html>
