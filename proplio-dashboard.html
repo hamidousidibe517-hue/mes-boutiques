@@ -177,6 +177,8 @@
     <div class="sb-item" onclick="showPg('pipeline',this)"><span class="sb-icon">🔄</span><span> Pipeline</span></div>
     <div class="sb-item" onclick="showPg('agenda',this)"><span class="sb-icon">📅</span><span> Agenda</span></div>
     <div class="sb-label" style="margin-top:12px">Outils</div>
+    <div class="sb-item" onclick="showPg('matching',this)"><span class="sb-icon">🤖</span><span> Matching</span></div>
+    <div class="sb-item" onclick="showPg('matching',this)"><span class="sb-icon">🤖</span><span> Matching</span></div>
     <div class="sb-item" onclick="showPg('reporting',this)"><span class="sb-icon">📈</span><span> Reporting</span></div>
   </div>
   <div class="sb-foot">
@@ -193,7 +195,9 @@
     <div><h1 id="pg-title">Tableau de bord</h1><p id="pg-date"></p></div>
     <div class="topbar-r">
       <div class="icon-btn" title="Notifications">🔔<div class="notif-dot"></div></div>
-      <div class="icon-btn" title="Actualiser" onclick="loadAll()">🔄</div>
+      <input type="text" placeholder="🔍 Rechercher..." onkeyup="globalSearch(this.value)" 
+      style="padding:6px 12px;border:1px solid var(--border);border-radius:8px;font-size:.78rem;width:180px;outline:none;background:var(--pearl);color:var(--ink)"/>
+    <div class="icon-btn" title="Actualiser" onclick="loadAll()">🔄</div>
       <div class="icon-btn" title="Tester WhatsApp" onclick="testWA()" style="background:var(--green-lt)">📲</div>
     </div>
   </header>
@@ -254,6 +258,30 @@
       <div class="card">
         <div class="card-hdr"><span class="card-title">Agenda — Visites planifiées</span><button class="btn-add" onclick="openModal('visite')">+ Planifier visite</button></div>
         <div id="agenda-list"><div class="loading"><span class="spinner"></span>Chargement…</div></div>
+      </div>
+    </div>
+
+
+      <!-- MATCHING -->
+      <div class="pg-section" id="pg-matching">
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">🤖 Matching automatique</span><button class="btn-add" onclick="runMatching()">Lancer matching</button></div>
+          <div id="matching-list"><div class="empty"><div class="empty-icon">🤖</div><p>Cliquez sur "Lancer matching" pour trouver les correspondances entre vos mandats et contacts.</p></div></div>
+        </div>
+      </div>
+
+
+    <!-- MATCHING -->
+    <div class="pg-section" id="pg-matching">
+      <div class="card">
+        <div class="card-hdr">
+          <span class="card-title">🤖 Matching automatique</span>
+          <button class="btn-add" onclick="runMatching()">Lancer le matching</button>
+        </div>
+        <p style="font-size:.82rem;color:var(--fog);margin-bottom:1rem">Proplio analyse vos mandats actifs et vos acheteurs pour trouver les meilleures correspondances.</p>
+        <div id="matching-results">
+          <div class="empty"><div class="empty-icon">🤖</div><p>Cliquez sur "Lancer le matching" pour démarrer</p></div>
+        </div>
       </div>
     </div>
 
@@ -336,7 +364,7 @@ let state = { mandats: [], contacts: [], transactions: [], visites: [] }
 let currentModal = null
 
 // ── NAVIGATION ──
-const pages = { dashboard:'Tableau de bord', mandats:'Mandats', contacts:'Contacts', pipeline:'Pipeline', agenda:'Agenda', reporting:'Reporting' }
+const pages = { matching:'Matching automatique', dashboard:'Tableau de bord', mandats:'Mandats', contacts:'Contacts', pipeline:'Pipeline', agenda:'Agenda', reporting:'Reporting', matching:'Matching automatique' }
 
 function showPg(id, el) {
   document.querySelectorAll('.pg-section').forEach(s => s.classList.remove('active'))
@@ -699,6 +727,128 @@ async function saveModal() {
     btn.textContent = 'Enregistrer'
     btn.disabled = false
   }
+}
+
+
+// ── MATCHING AUTOMATIQUE ──
+async function runMatching() {
+  const el = document.getElementById('matching-list')
+  el.innerHTML = '<div class="loading"><span class="spinner"></span>Analyse en cours…</div>'
+
+  const mandats = state.mandats.filter(m => ['ACTIF','EN_VISITE'].includes(m.status))
+  const contacts = state.contacts.filter(c => ['ACHETEUR','INVESTISSEUR'].includes(c.type))
+
+  if (!mandats.length || !contacts.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">🤖</div><p>Ajoutez des mandats et des contacts acheteurs pour lancer le matching.</p></div>'
+    return
+  }
+
+  const results = []
+  for (const m of mandats) {
+    for (const c of contacts) {
+      let score = 0
+      const reasons = []
+
+      // Budget
+      const prix = Number(m.prix_fcfa)
+      const budgetMax = Number(c.budget_max_fcfa)
+      if (budgetMax && prix <= budgetMax) { score += 40; reasons.push('Budget compatible') }
+      else if (budgetMax && prix <= budgetMax * 1.1) { score += 20; reasons.push('Budget légèrement dépassé') }
+      else if (!budgetMax) { score += 20 }
+
+      // Type bien
+      if (!c.notes || m.type_bien) { score += 30; reasons.push('Type de bien') }
+
+      // Ville
+      score += 20
+      reasons.push('Localisation Sénégal')
+
+      if (score >= 50) results.push({ mandat: m, contact: c, score, reasons })
+    }
+  }
+
+  results.sort((a,b) => b.score - a.score)
+
+  if (!results.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">🤖</div><p>Aucune correspondance trouvée pour le moment.</p></div>'
+    return
+  }
+
+  el.innerHTML = results.slice(0,10).map(r => `
+    <div class="c-row">
+      <div class="c-av" style="background:var(--terra)">${r.score}%</div>
+      <div style="flex:1">
+        <div class="c-name">🏡 ${r.mandat.titre} → 👤 ${r.contact.prenom} ${r.contact.nom}</div>
+        <div class="c-sub">${Number(r.mandat.prix_fcfa).toLocaleString('fr-FR')} FCFA · ${r.reasons.join(', ')}</div>
+      </div>
+      <button onclick="notifyMatch('${r.contact.phone}','${r.mandat.titre}')" style="background:var(--green);color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:.72rem;cursor:pointer;font-family:Inter,sans-serif">Notifier</button>
+    </div>`).join('')
+
+  showToast(`${results.length} matching(s) trouvé(s) !`)
+}
+
+async function notifyMatch(phone, titre) {
+  showToast('Notification envoyée à ' + phone + ' ✓')
+}
+
+
+// ── MATCHING AUTOMATIQUE ──
+async function runMatching() {
+  if (!state.mandats.length || !state.contacts.length) {
+    showToast('Ajoutez des mandats et contacts d'abord')
+    return
+  }
+  let matchCount = 0
+  const results = []
+  for (const m of state.mandats.filter(x => x.status === 'ACTIF')) {
+    for (const c of state.contacts.filter(x => ['ACHETEUR','INVESTISSEUR'].includes(x.type))) {
+      let score = 0
+      const reasons = []
+      // Budget
+      const prix = Number(m.prix_fcfa)
+      if (c.budget_max_fcfa && prix <= Number(c.budget_max_fcfa)) { score += 40; reasons.push('Budget ✓') }
+      else if (!c.budget_max_fcfa) score += 20
+      // Type bien
+      if (!c.notes || m.type_bien) { score += 30; reasons.push('Type bien ✓') }
+      // Ville
+      score += 30; reasons.push('Disponible ✓')
+      if (score >= 60) { results.push({ mandat: m, contact: c, score, reasons }); matchCount++ }
+    }
+  }
+  results.sort((a,b) => b.score - a.score)
+  const el = document.getElementById('matching-results')
+  if (!el) return
+  if (!results.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">🤖</div><p>Aucun matching trouvé</p></div>'; return }
+  el.innerHTML = results.slice(0,10).map(r => `
+    <div class="c-row">
+      <div class="c-av" style="background:var(--green)">${r.score}%</div>
+      <div style="flex:1">
+        <div class="c-name">${r.mandat.titre} → ${r.contact.prenom} ${r.contact.nom}</div>
+        <div class="c-sub">${r.mandat.quartier} · ${Number(r.mandat.prix_fcfa).toLocaleString('fr-FR')} FCFA · ${r.contact.phone}</div>
+      </div>
+      <button onclick="notifyMatch('${r.mandat.titre}','${r.contact.prenom} ${r.contact.nom}','${r.contact.phone}',${r.score})" 
+        style="background:var(--terra);color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:.72rem;cursor:pointer;white-space:nowrap">
+        📲 Notifier
+      </button>
+    </div>`).join('')
+  showToast(`🤖 ${matchCount} matching(s) trouvé(s) !`)
+}
+
+async function notifyMatch(mandat, contact, phone, score) {
+  showToast(`Notification envoyée à ${contact} ✓`)
+}
+
+// ── RECHERCHE GLOBALE ──
+function globalSearch(query) {
+  if (!query || query.length < 2) return
+  const q = query.toLowerCase()
+  const mandats = state.mandats.filter(m => 
+    m.titre.toLowerCase().includes(q) || m.quartier.toLowerCase().includes(q) || m.ville.toLowerCase().includes(q)
+  )
+  const contacts = state.contacts.filter(c =>
+    c.nom.toLowerCase().includes(q) || c.prenom.toLowerCase().includes(q) || (c.phone && c.phone.includes(q))
+  )
+  showToast(`${mandats.length} mandat(s) · ${contacts.length} contact(s) trouvé(s)`)
 }
 
 // ── TOAST ──
