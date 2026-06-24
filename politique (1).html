@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GestBoutik — Politique de confidentialité</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#0A1628;--blue:#1B4FD8;--blue-dark:#0D2B6B;--blue-light:#EFF6FF;--blue-100:#DBEAFE;
+  --white:#FFFFFF;--gray-50:#F8FAFC;--gray-100:#F1F5F9;--gray-200:#E2E8F0;--gray-400:#94A3B8;--gray-600:#475569;
+  --green:#10B981;--green-bg:#ECFDF5;
+  --r:12px;--r-sm:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--gray-50);-webkit-font-smoothing:antialiased;}
+
+/* NAV */
+nav{background:var(--white);border-bottom:1px solid var(--gray-200);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-brand-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--blue-dark),var(--blue));border-radius:9px;display:flex;align-items:center;justify-content:center;}
+.nav-brand-icon svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.3;}
+.nav-brand-name{font-size:17px;font-weight:900;color:var(--ink);}
+.nav-brand-name span{color:var(--blue);}
+.btn-back{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:8px 16px;border-radius:var(--r-sm);border:1.5px solid var(--gray-200);background:transparent;color:var(--gray-600);cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;transition:all 0.2s;}
+.btn-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.btn-back:hover{border-color:var(--blue);color:var(--blue);}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--blue-dark),var(--blue));padding:3rem 1.5rem;text-align:center;}
+.hero-tag{display:inline-block;font-size:12px;font-weight:700;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.1);padding:4px 14px;border-radius:20px;margin-bottom:1rem;letter-spacing:0.5px;border:1px solid rgba(255,255,255,0.15);}
+.hero h1{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:#fff;letter-spacing:-0.8px;margin-bottom:8px;}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.65);}
+
+/* CONTENT */
+.content-wrap{max-width:760px;margin:0 auto;padding:3rem 1.5rem;}
+
+/* TOC */
+.toc{background:var(--white);border-radius:var(--r);padding:1.5rem;border:1px solid var(--gray-200);margin-bottom:2.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);}
+.toc-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.toc-title svg{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:2;}
+.toc-list{display:flex;flex-direction:column;gap:6px;}
+.toc-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--blue);text-decoration:none;font-weight:500;transition:color 0.15s;}
+.toc-item:hover{color:var(--blue-dark);}
+.toc-num{width:22px;height:22px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--blue);flex-shrink:0;}
+
+/* SECTIONS */
+.policy-section{background:var(--white);border-radius:var(--r);padding:2rem;border:1px solid var(--gray-200);margin-bottom:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);}
+.section-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:var(--blue-light);font-size:12px;font-weight:800;color:var(--blue);margin-bottom:12px;}
+.section-title{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:12px;letter-spacing:-0.3px;}
+.section-text{font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:12px;}
+.section-text:last-child{margin-bottom:0;}
+.section-list{display:flex;flex-direction:column;gap:8px;margin:12px 0;}
+.sl-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--gray-600);line-height:1.65;}
+.sl-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);margin-top:8px;flex-shrink:0;}
+.highlight-box{background:var(--blue-light);border-radius:var(--r-sm);padding:1rem 1.25rem;border-left:3px solid var(--blue);margin:12px 0;}
+.highlight-box p{font-size:13px;color:var(--blue-dark);line-height:1.7;font-weight:500;}
+.green-box{background:var(--green-bg);border-radius:var(--r-sm);padding:1rem 1.25rem;border-left:3px solid var(--green);margin:12px 0;}
+.green-box p{font-size:13px;color:#065F46;line-height:1.7;font-weight:500;}
+
+/* CONTACT */
+.contact-card{background:linear-gradient(135deg,var(--blue-dark),var(--blue));border-radius:var(--r);padding:2rem;text-align:center;margin-bottom:2rem;}
+.contact-title{font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:8px;}
+.contact-sub{font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;line-height:1.6;}
+.btn-wa{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:12px 24px;border-radius:var(--r-sm);border:none;background:#25D366;color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:all 0.2s;text-decoration:none;}
+.btn-wa svg{width:18px;height:18px;fill:#fff;}
+.btn-wa:hover{opacity:0.9;transform:translateY(-1px);}
+
+/* FOOTER */
+footer{background:var(--ink);padding:2rem 1.5rem;text-align:center;}
+.footer-brand{font-size:16px;font-weight:900;color:#fff;margin-bottom:6px;}
+.footer-brand span{color:#60A5FA;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.3);}
+
+@media(max-width:600px){
+  .content-wrap{padding:2rem 1rem;}
+  .policy-section{padding:1.5rem 1.25rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="gestboutik-landing.html" class="nav-brand">
+    <div class="nav-brand-icon">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
+    <div class="nav-brand-name">Gest<span>Boutik</span></div>
+  </a>
+  <a href="gestboutik-landing.html" class="btn-back">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Retour
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Légal</div>
+  <h1>Politique de confidentialité</h1>
+  <p class="hero-sub">Dernière mise à jour : juin 2025 · GestBoutik, Dakar, Sénégal</p>
+</div>
+
+<!-- CONTENT -->
+<div class="content-wrap">
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <div class="toc-title">
+      <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      Table des matières
+    </div>
+    <div class="toc-list">
+      <a href="#s1" class="toc-item"><div class="toc-num">1</div>Informations que nous collectons</a>
+      <a href="#s2" class="toc-item"><div class="toc-num">2</div>Comment nous utilisons vos données</a>
+      <a href="#s3" class="toc-item"><div class="toc-num">3</div>Stockage et sécurité</a>
+      <a href="#s4" class="toc-item"><div class="toc-num">4</div>Partage des données</a>
+      <a href="#s5" class="toc-item"><div class="toc-num">5</div>Vos droits</a>
+      <a href="#s6" class="toc-item"><div class="toc-num">6</div>Cookies</a>
+      <a href="#s7" class="toc-item"><div class="toc-num">7</div>Modifications de cette politique</a>
+      <a href="#s8" class="toc-item"><div class="toc-num">8</div>Nous contacter</a>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="policy-section">
+    <p class="section-text">Bienvenue sur <strong>GestBoutik</strong>. Nous prenons la confidentialité de vos données très au sérieux. Cette politique explique quelles informations nous collectons, comment nous les utilisons et comment nous les protégeons lorsque vous utilisez notre plateforme de gestion commerciale.</p>
+    <div class="green-box"><p>En utilisant GestBoutik, vous acceptez les pratiques décrites dans cette politique de confidentialité.</p></div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="policy-section" id="s1">
+    <div class="section-num">1</div>
+    <div class="section-title">Informations que nous collectons</div>
+    <p class="section-text">Lors de votre inscription et utilisation de GestBoutik, nous collectons les informations suivantes :</p>
+    <div class="section-list">
+      <div class="sl-item"><div class="sl-dot"></div>Nom complet et adresse email</div>
+      <div class="sl-item"><div class="sl-dot"></div>Numéro de téléphone WhatsApp</div>
+      <div class="sl-item"><div class="sl-dot"></div>Informations sur votre boutique (nom, adresse, type de commerce)</div>
+      <div class="sl-item"><div class="sl-dot"></div>Données de ventes et transactions enregistrées</div>
+      <div class="sl-item"><div class="sl-dot"></div>Informations sur vos employés (nom, salaire, rôle)</div>
+      <div class="sl-item"><div class="sl-dot"></div>Données de stock et d'inventaire</div>
+      <div class="sl-item"><div class="sl-dot"></div>Informations de paiement (référence de transaction Wave/Orange Money)</div>
+    </div>
+    <div class="highlight-box"><p>Nous ne collectons jamais vos numéros de carte bancaire ou codes PIN. Les paiements sont effectués directement via Wave ou Orange Money.</p></div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="policy-section" id="s2">
+    <div class="section-num">2</div>
+    <div class="section-title">Comment nous utilisons vos données</div>
+    <p class="section-text">Vos données sont utilisées uniquement pour :</p>
+    <div class="section-list">
+      <div class="sl-item"><div class="sl-dot"></div>Fournir et améliorer les services GestBoutik</div>
+      <div class="sl-item"><div class="sl-dot"></div>Gérer votre compte et votre abonnement</div>
+      <div class="sl-item"><div class="sl-dot"></div>Vous envoyer des notifications importantes par WhatsApp</div>
+      <div class="sl-item"><div class="sl-dot"></div>Générer vos rapports et statistiques</div>
+      <div class="sl-item"><div class="sl-dot"></div>Vous contacter en cas de problème technique</div>
+      <div class="sl-item"><div class="sl-dot"></div>Améliorer notre plateforme</div>
+    </div>
+    <div class="green-box"><p>Nous n'utilisons jamais vos données à des fins publicitaires et nous ne les vendons jamais à des tiers.</p></div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="policy-section" id="s3">
+    <div class="section-num">3</div>
+    <div class="section-title">Stockage et sécurité</div>
+    <p class="section-text">Vos données sont stockées de manière sécurisée sur les serveurs de <strong>Supabase</strong>, une plateforme de base de données reconnue pour sa sécurité. Nous utilisons :</p>
+    <div class="section-list">
+      <div class="sl-item"><div class="sl-dot"></div>Chiffrement SSL/TLS pour toutes les communications</div>
+      <div class="sl-item"><div class="sl-dot"></div>Authentification sécurisée avec mots de passe cryptés</div>
+      <div class="sl-item"><div class="sl-dot"></div>Contrôle d'accès par rôle (patron/gérant)</div>
+      <div class="sl-item"><div class="sl-dot"></div>Sauvegardes régulières de vos données</div>
+    </div>
+    <p class="section-text">Chaque client n'a accès qu'à ses propres données. Aucun autre utilisateur ne peut voir vos informations.</p>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="policy-section" id="s4">
+    <div class="section-num">4</div>
+    <div class="section-title">Partage des données</div>
+    <p class="section-text">Nous ne partageons vos données avec aucun tiers, sauf dans les cas suivants :</p>
+    <div class="section-list">
+      <div class="sl-item"><div class="sl-dot"></div><strong>Supabase</strong> — notre prestataire de base de données (hébergement uniquement)</div>
+      <div class="sl-item"><div class="sl-dot"></div><strong>Obligation légale</strong> — si la loi sénégalaise l'exige</div>
+    </div>
+    <div class="highlight-box"><p>Nous ne vendons, ne louons et ne partageons jamais vos données commerciales avec des tiers à des fins commerciales.</p></div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="policy-section" id="s5">
+    <div class="section-num">5</div>
+    <div class="section-title">Vos droits</div>
+    <p class="section-text">Vous avez le droit de :</p>
+    <div class="section-list">
+      <div class="sl-item"><div class="sl-dot"></div>Accéder à toutes vos données personnelles</div>
+      <div class="sl-item"><div class="sl-dot"></div>Corriger ou mettre à jour vos informations</div>
+      <div class="sl-item"><div class="sl-dot"></div>Demander la suppression de votre compte et de vos données</div>
+      <div class="sl-item"><div class="sl-dot"></div>Exporter vos données (ventes, stock, employés)</div>
+      <div class="sl-item"><div class="sl-dot"></div>Annuler votre abonnement à tout moment</div>
+    </div>
+    <p class="section-text">Pour exercer ces droits, contactez-nous sur WhatsApp ou par email.</p>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="policy-section" id="s6">
+    <div class="section-num">6</div>
+    <div class="section-title">Cookies</div>
+    <p class="section-text">GestBoutik utilise uniquement les technologies de stockage local (<strong>localStorage</strong>) pour maintenir votre session de connexion. Nous n'utilisons pas de cookies de tracking ou de publicité.</p>
+    <div class="green-box"><p>Aucun cookie publicitaire. Aucun suivi de vos activités en dehors de GestBoutik.</p></div>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="policy-section" id="s7">
+    <div class="section-num">7</div>
+    <div class="section-title">Modifications de cette politique</div>
+    <p class="section-text">Nous pouvons mettre à jour cette politique de confidentialité à tout moment. En cas de modification importante, nous vous informerons par WhatsApp ou par email.</p>
+    <p class="section-text">La date de dernière mise à jour est toujours indiquée en haut de cette page. En continuant à utiliser GestBoutik après une modification, vous acceptez la nouvelle politique.</p>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="policy-section" id="s8">
+    <div class="section-num">8</div>
+    <div class="section-title">Nous contacter</div>
+    <p class="section-text">Pour toute question concernant cette politique de confidentialité ou vos données personnelles :</p>
+    <div class="section-list">
+      <div class="sl-item"><div class="sl-dot"></div><strong>WhatsApp :</strong> +221 77 027 76 29</div>
+      <div class="sl-item"><div class="sl-dot"></div><strong>Localisation :</strong> Dakar, Sénégal</div>
+      <div class="sl-item"><div class="sl-dot"></div><strong>Responsable :</strong> Hamidou Sidibé</div>
+    </div>
+  </div>
+
+  <!-- CONTACT CTA -->
+  <div class="contact-card">
+    <div class="contact-title">Une question sur vos données ?</div>
+    <div class="contact-sub">Notre équipe vous répond rapidement sur WhatsApp.</div>
+    <a href="https://wa.me/221770277629?text=Bonjour, j'ai une question sur la politique de confidentialité de GestBoutik" target="_blank" class="btn-wa">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.484 2 12.017c0 1.99.518 3.979 1.502 5.689L2 22l4.418-1.461C8.106 21.473 10.026 22 11.999 22 17.522 22 22 17.516 22 12.017 22 6.484 17.522 2 11.999 2z"/></svg>
+      Nous contacter sur WhatsApp
+    </a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Gest<span>Boutik</span></div>
+  <div class="footer-copy">© 2025 GestBoutik · Tous droits réservés · Dakar, Sénégal</div>
+</footer>
+
+</body>
+</html>
