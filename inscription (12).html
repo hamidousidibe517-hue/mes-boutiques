@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GestBoutik — Créer votre compte</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#0A1628;
+  --blue:#1B4FD8;
+  --blue-dark:#0D2B6B;
+  --blue-mid:#2563EB;
+  --blue-light:#EFF6FF;
+  --blue-100:#DBEAFE;
+  --green:#10B981;--green-bg:#ECFDF5;
+  --amber:#F59E0B;
+  --red:#EF4444;--red-bg:#FEF2F2;
+  --white:#FFFFFF;
+  --gray-50:#F8FAFC;
+  --gray-100:#F1F5F9;
+  --gray-200:#E2E8F0;
+  --gray-400:#94A3B8;
+  --gray-600:#475569;
+  --r:14px;--r-sm:10px;--r-xs:8px;
+  --sh:0 1px 3px rgba(0,0,0,0.08);
+  --sh-lg:0 12px 40px rgba(0,0,0,0.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--gray-50);min-height:100vh;-webkit-font-smoothing:antialiased;}
+
+/* ── LAYOUT ── */
+.page-wrap{display:flex;min-height:100vh;}
+
+/* ── LEFT PANEL ── */
+.left-panel{width:420px;flex-shrink:0;background:linear-gradient(160deg,var(--blue-dark) 0%,var(--blue) 70%,#3B82F6 100%);padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
+.left-panel::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
+.lp-brand{display:flex;align-items:center;gap:10px;position:relative;}
+.lp-brand-icon{width:38px;height:38px;background:rgba(255,255,255,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.lp-brand-icon svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.2;}
+.lp-brand-name{font-size:20px;font-weight:900;color:#fff;letter-spacing:-0.5px;}
+.lp-brand-name span{color:rgba(255,255,255,0.6);}
+.lp-content{position:relative;}
+.lp-title{font-size:1.9rem;font-weight:900;color:#fff;line-height:1.2;letter-spacing:-0.8px;margin-bottom:1rem;}
+.lp-sub{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:2rem;}
+.lp-features{display:flex;flex-direction:column;gap:14px;}
+.lp-feat{display:flex;align-items:center;gap:12px;}
+.lp-feat-icon{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.lp-feat-icon svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;}
+.lp-feat-text{font-size:13px;color:rgba(255,255,255,0.85);font-weight:500;}
+.lp-footer{position:relative;font-size:12px;color:rgba(255,255,255,0.4);}
+
+/* ── RIGHT PANEL ── */
+.right-panel{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;overflow-y:auto;}
+.form-container{width:100%;max-width:480px;}
+
+/* ── STEPPER ── */
+.stepper{display:flex;align-items:center;gap:0;margin-bottom:2.5rem;}
+.step{display:flex;align-items:center;gap:8px;flex:1;}
+.step-circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;transition:all 0.3s;}
+.step-circle.done{background:var(--green);color:#fff;}
+.step-circle.active{background:var(--blue);color:#fff;box-shadow:0 0 0 4px var(--blue-100);}
+.step-circle.pending{background:var(--gray-100);color:var(--gray-400);}
+.step-label{font-size:12px;font-weight:600;white-space:nowrap;}
+.step-label.active{color:var(--blue);}
+.step-label.done{color:var(--green);}
+.step-label.pending{color:var(--gray-400);}
+.step-line{flex:1;height:2px;background:var(--gray-200);margin:0 8px;border-radius:2px;transition:background 0.3s;}
+.step-line.done{background:var(--green);}
+
+/* ── FORM CARD ── */
+.form-card{background:var(--white);border-radius:var(--r);padding:2.5rem;box-shadow:var(--sh-lg);border:1px solid var(--gray-200);}
+.form-title{font-size:1.4rem;font-weight:800;color:var(--ink);letter-spacing:-0.5px;margin-bottom:6px;}
+.form-sub{font-size:13px;color:var(--gray-400);margin-bottom:2rem;line-height:1.6;}
+
+/* ── FIELDS ── */
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:16px;}
+.field label{font-size:12px;font-weight:600;color:var(--gray-600);}
+.field-wrap{position:relative;}
+.field-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;}
+.field-icon svg{width:16px;height:16px;stroke:var(--gray-400);fill:none;stroke-width:2;}
+.fi{font-family:'Inter',sans-serif;font-size:14px;width:100%;padding:11px 14px 11px 40px;border:1.5px solid var(--gray-200);border-radius:var(--r-sm);background:var(--white);color:var(--ink);outline:none;transition:all 0.2s;appearance:none;}
+.fi.no-icon{padding-left:14px;}
+.fi:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,79,216,0.08);}
+.fi::placeholder{color:var(--gray-400);}
+.fi option{background:#fff;}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+/* ── PLAN CARDS ── */
+.plan-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:1.5rem;}
+.plan-card{border:2px solid var(--gray-200);border-radius:var(--r-sm);padding:1.25rem;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:16px;position:relative;}
+.plan-card:hover{border-color:var(--blue-100);}
+.plan-card.selected{border-color:var(--blue);background:var(--blue-light);}
+.plan-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--gray-200);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+.plan-card.selected .plan-radio{border-color:var(--blue);background:var(--blue);}
+.plan-radio-dot{width:8px;height:8px;border-radius:50%;background:#fff;display:none;}
+.plan-card.selected .plan-radio-dot{display:block;}
+.plan-info{flex:1;}
+.plan-name{font-size:14px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px;}
+.plan-badge{font-size:10px;font-weight:700;background:var(--amber);color:#fff;padding:2px 8px;border-radius:20px;}
+.plan-price{font-size:13px;color:var(--gray-400);margin-top:2px;}
+.plan-features{font-size:12px;color:var(--gray-600);margin-top:6px;line-height:1.6;}
+
+/* ── BUTTONS ── */
+.btn-primary{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:13px;border-radius:var(--r-sm);border:none;background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;cursor:pointer;width:100%;transition:all 0.2s;box-shadow:0 4px 14px rgba(27,79,216,0.25);display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-primary svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(27,79,216,0.35);}
+.btn-primary:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.btn-back{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:10px;border-radius:var(--r-sm);border:1.5px solid var(--gray-200);background:transparent;color:var(--gray-600);cursor:pointer;width:100%;transition:all 0.2s;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:6px;}
+.btn-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.btn-back:hover{border-color:var(--blue);color:var(--blue);}
+
+/* ── ERROR ── */
+.err{background:var(--red-bg);color:var(--red);font-size:13px;padding:10px 14px;border-radius:var(--r-xs);margin-bottom:14px;display:none;border:1px solid #FECACA;font-weight:500;}
+
+/* ── LOGIN LINK ── */
+.login-link{text-align:center;margin-top:1.25rem;font-size:13px;color:var(--gray-400);}
+.login-link a{color:var(--blue);font-weight:600;text-decoration:none;}
+.login-link a:hover{text-decoration:underline;}
+
+/* ── SUCCESS ── */
+.success-card{background:var(--white);border-radius:var(--r);padding:2.5rem;box-shadow:var(--sh-lg);border:1px solid var(--gray-200);text-align:center;}
+.success-icon{width:72px;height:72px;border-radius:50%;background:var(--green-bg);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;}
+.success-icon svg{width:32px;height:32px;stroke:var(--green);fill:none;stroke-width:2.5;}
+.success-title{font-size:1.4rem;font-weight:800;color:var(--ink);margin-bottom:8px;}
+.success-sub{font-size:14px;color:var(--gray-400);margin-bottom:2rem;line-height:1.7;}
+.success-info{background:var(--gray-50);border-radius:var(--r-sm);padding:1.25rem;margin-bottom:1.5rem;text-align:left;}
+.info-row{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid var(--gray-200);}
+.info-row:last-child{border-bottom:none;}
+.info-row span:first-child{color:var(--gray-400);}
+.info-row span:last-child{font-weight:600;color:var(--ink);}
+.btn-wa{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:13px;border-radius:var(--r-sm);border:none;background:#25D366;color:#fff;cursor:pointer;width:100%;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;}
+.btn-wa svg{width:18px;height:18px;fill:#fff;}
+.btn-wa:hover{opacity:0.9;transform:translateY(-1px);}
+.btn-dashboard{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:13px;border-radius:var(--r-sm);border:none;background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;cursor:pointer;width:100%;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-dashboard svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;}
+.btn-dashboard:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(27,79,216,0.35);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .left-panel{display:none;}
+  .right-panel{padding:2rem 1.25rem;}
+}
+@media(max-width:480px){
+  .form-card{padding:1.75rem 1.25rem;}
+  .field-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ── LEFT PANEL ── -->
+  <div class="left-panel">
+    <a href="gestboutik-landing.html" class="lp-brand">
+      <img src="https://hamidousidibe517-hue.github.io/mes-boutiques/logo.jpg" style="height:50px;width:auto;object-fit:contain;filter:brightness(0) invert(1)"/>
+    </a>
+    <div class="lp-content">
+      <h2 class="lp-title">Gérez votre commerce depuis n'importe où</h2>
+      <p class="lp-sub">Rejoignez les commerçants sénégalais qui pilotent leur business intelligemment.</p>
+      <div class="lp-features">
+        <div class="lp-feat">
+          <div class="lp-feat-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div>
+          <div class="lp-feat-text">Tableau de bord en temps réel</div>
+        </div>
+        <div class="lp-feat">
+          <div class="lp-feat-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+          <div class="lp-feat-text">Gestion des stocks et alertes</div>
+        </div>
+        <div class="lp-feat">
+          <div class="lp-feat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div class="lp-feat-text">Gestion des employés et salaires</div>
+        </div>
+        <div class="lp-feat">
+          <div class="lp-feat-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="lp-feat-text">Rapports PDF et alertes WhatsApp</div>
+        </div>
+        <div class="lp-feat">
+          <div class="lp-feat-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+          <div class="lp-feat-text">Données sécurisées, accès par rôle</div>
+        </div>
+      </div>
+    </div>
+    <div class="lp-footer">© 2025 GestBoutik · Dakar, Sénégal</div>
+  </div>
+
+  <!-- ── RIGHT PANEL ── -->
+  <div class="right-panel">
+    <div class="form-container">
+
+      <!-- STEPPER -->
+      <div class="stepper" id="stepper">
+        <div class="step">
+          <div class="step-circle active" id="sc1">1</div>
+          <div class="step-label active" id="sl1">Compte</div>
+        </div>
+        <div class="step-line" id="line1"></div>
+        <div class="step">
+          <div class="step-circle pending" id="sc2">2</div>
+          <div class="step-label pending" id="sl2">Boutique</div>
+        </div>
+        <div class="step-line" id="line2"></div>
+        <div class="step">
+          <div class="step-circle pending" id="sc3">3</div>
+          <div class="step-label pending" id="sl3">Forfait</div>
+        </div>
+        <div class="step-line" id="line3"></div>
+        <div class="step">
+          <div class="step-circle pending" id="sc4">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-label pending" id="sl4">Terminé</div>
+        </div>
+      </div>
+
+      <!-- ── ÉTAPE 1 : COMPTE ── -->
+      <div id="step1">
+        <div class="form-card">
+          <div class="form-title">Créez votre compte</div>
+          <div class="form-sub">Commencez gratuitement — 7 jours d'essai sans carte bancaire.</div>
+          <div class="err" id="err1"></div>
+          <div class="field">
+            <label>Nom complet</label>
+            <div class="field-wrap">
+              <div class="field-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <input class="fi" type="text" id="nom" placeholder="Votre nom complet"/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Numéro WhatsApp</label>
+            <div class="field-wrap">
+              <div class="field-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.18 1.2 2 2 0 012.18 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+              <input class="fi" type="tel" id="whatsapp" placeholder="+221 77 000 00 00"/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <div class="field-wrap">
+              <div class="field-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <input class="fi" type="email" id="email" placeholder="vous@exemple.com"/>
+            </div>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label>Mot de passe</label>
+              <div class="field-wrap">
+                <div class="field-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+                <input class="fi" type="password" id="password" placeholder="••••••••"/>
+              </div>
+            </div>
+            <div class="field">
+              <label>Confirmer</label>
+              <div class="field-wrap">
+                <div class="field-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+                <input class="fi" type="password" id="password2" placeholder="••••••••"/>
+              </div>
+            </div>
+          </div>
+          <button class="btn-primary" id="btnStep1" onclick="goStep2()">
+            Continuer
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="login-link">Vous avez déjà un compte ? <a href="index.html">Se connecter</a></div>
+      </div>
+
+      <!-- ── ÉTAPE 2 : BOUTIQUE ── -->
+      <div id="step2" style="display:none">
+        <div class="form-card">
+          <div class="form-title">Votre première boutique</div>
+          <div class="form-sub">Configurez votre boutique. Vous pourrez en ajouter d'autres plus tard.</div>
+          <div class="err" id="err2"></div>
+          <div class="field">
+            <label>Nom de la boutique</label>
+            <div class="field-wrap">
+              <div class="field-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+              <input class="fi" type="text" id="boutiqueName" placeholder="Ex: Épicerie Chez Aminata"/>
+            </div>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label>Ville</label>
+              <div class="field-wrap">
+                <div class="field-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg></div>
+                <input class="fi" type="text" id="ville" placeholder="Ex: Dakar"/>
+              </div>
+            </div>
+            <div class="field">
+              <label>Quartier</label>
+              <div class="field-wrap">
+                <div class="field-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <input class="fi" type="text" id="quartier" placeholder="Ex: Medina"/>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label>Type de commerce</label>
+            <select class="fi no-icon" id="typeCommerce">
+              <option value="">Sélectionner...</option>
+              <option>Épicerie / Alimentation générale</option>
+              <option>Multiservice</option>
+              <option>Boutique de vêtements</option>
+              <option>Pharmacie</option>
+              <option>Quincaillerie</option>
+              <option>Restaurant / Snack</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Nombre de boutiques au total</label>
+            <select class="fi no-icon" id="nbBoutiques">
+              <option value="1">1 boutique</option>
+              <option value="2">2 boutiques</option>
+              <option value="3">3 boutiques</option>
+              <option value="4">4 à 5 boutiques</option>
+              <option value="5">Plus de 5 boutiques</option>
+            </select>
+          </div>
+          <button class="btn-primary" onclick="goStep3()">
+            Continuer
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <button class="btn-back" style="margin-top:10px" onclick="goBack(1)">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            Retour
+          </button>
+        </div>
+      </div>
+
+      <!-- ── ÉTAPE 3 : FORFAIT ── -->
+      <div id="step3" style="display:none">
+        <div class="form-card">
+          <div class="form-title">Choisissez votre forfait</div>
+          <div class="form-sub">7 jours gratuits, sans carte bancaire. Changez ou annulez à tout moment.</div>
+          <div class="err" id="err3"></div>
+          <div class="plan-grid">
+            <div class="plan-card selected" id="plan-essai" onclick="selectPlan('essai')">
+              <div class="plan-radio"><div class="plan-radio-dot"></div></div>
+              <div class="plan-info">
+                <div class="plan-name">Essai gratuit</div>
+                <div class="plan-price">Gratuit · 7 jours</div>
+                <div class="plan-features">1 boutique · 5 employés · Tableau de bord basique</div>
+              </div>
+            </div>
+            <div class="plan-card" id="plan-pro" onclick="selectPlan('pro')">
+              <div class="plan-radio"><div class="plan-radio-dot"></div></div>
+              <div class="plan-info">
+                <div class="plan-name">Pro <span class="plan-badge">POPULAIRE</span></div>
+                <div class="plan-price">15 000 FCFA · par mois</div>
+                <div class="plan-features">Boutiques illimitées · Employés illimités · Stocks · Rapports PDF · Alertes WhatsApp · Support</div>
+              </div>
+            </div>
+          </div>
+          <button class="btn-primary" id="btnFinal" onclick="creerCompte()">
+            Créer mon compte
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+          <button class="btn-back" style="margin-top:10px" onclick="goBack(2)">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            Retour
+          </button>
+        </div>
+      </div>
+
+      <!-- ── ÉTAPE 4 : SUCCÈS ── -->
+      <div id="step4" style="display:none">
+        <div class="success-card">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="success-title">Bienvenue sur GestBoutik !</div>
+          <div class="success-sub">Votre compte a été créé avec succès. Vous pouvez maintenant accéder à votre tableau de bord.</div>
+          <div class="success-info">
+            <div class="info-row"><span>Nom</span><span id="s-nom">—</span></div>
+            <div class="info-row"><span>Email</span><span id="s-email">—</span></div>
+            <div class="info-row"><span>Boutique</span><span id="s-boutique">—</span></div>
+            <div class="info-row"><span>Forfait</span><span id="s-forfait">—</span></div>
+            <div class="info-row"><span>Statut</span><span style="color:var(--green);font-weight:700;">Actif</span></div>
+          </div>
+          <a href="https://wa.me/221770277629?text=Bonjour, je viens de créer mon compte GestBoutik" target="_blank">
+            <button class="btn-wa">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.484 2 12.017c0 1.99.518 3.979 1.502 5.689L2 22l4.418-1.461C8.106 21.473 10.026 22 11.999 22 17.522 22 22 17.516 22 12.017 22 6.484 17.522 2 11.999 2z"/></svg>
+              Contacter le support WhatsApp
+            </button>
+          </a>
+          <a href="index.html">
+            <button class="btn-dashboard">
+              Accéder à mon tableau de bord
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPA_URL='https://bemwpomukujtncvratnt.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJlbXdwb211a3VqdG5jdnJhdG50Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3MzM0MjksImV4cCI6MjA5NTMwOTQyOX0.G247QPLwKzPgNL2VFwXwxlmMbVqWCK7CEW5JAACMrko';
+
+let selectedPlan='essai';
+let userData={};
+
+function showErr(id,msg){const el=document.getElementById(id);el.textContent=msg;el.style.display='block';}
+function hideErr(id){document.getElementById(id).style.display='none';}
+
+function updateStepper(active){
+  [1,2,3,4].forEach(i=>{
+    const c=document.getElementById('sc'+i);
+    const l=document.getElementById('sl'+i);
+    if(i<active){
+      c.className='step-circle done';
+      c.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+      l.className='step-label done';
+      if(i<4) document.getElementById('line'+i).className='step-line done';
+    } else if(i===active){
+      c.className='step-circle active';
+      if(i<4) c.innerHTML=i;
+      l.className='step-label active';
+    } else {
+      c.className='step-circle pending';
+      if(i<4) c.innerHTML=i;
+      l.className='step-label pending';
+    }
+  });
+}
+
+function goStep2(){
+  hideErr('err1');
+  const nom=document.getElementById('nom').value.trim();
+  const wa=document.getElementById('whatsapp').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const pwd=document.getElementById('password').value;
+  const pwd2=document.getElementById('password2').value;
+  if(!nom||!wa||!email||!pwd) return showErr('err1','Veuillez remplir tous les champs.');
+  if(pwd.length<6) return showErr('err1','Le mot de passe doit faire au moins 6 caractères.');
+  if(pwd!==pwd2) return showErr('err1','Les mots de passe ne correspondent pas.');
+  userData={nom,whatsapp:wa,email,password:pwd};
+  document.getElementById('step1').style.display='none';
+  document.getElementById('step2').style.display='block';
+  updateStepper(2);
+}
+
+function goStep3(){
+  hideErr('err2');
+  const boutiqueName=document.getElementById('boutiqueName').value.trim();
+  const ville=document.getElementById('ville').value.trim();
+  const type=document.getElementById('typeCommerce').value;
+  if(!boutiqueName||!ville) return showErr('err2','Remplissez le nom et la ville.');
+  userData.boutiqueName=boutiqueName;
+  userData.ville=ville;
+  userData.quartier=document.getElementById('quartier').value.trim();
+  userData.typeCommerce=type;
+  userData.nbBoutiques=document.getElementById('nbBoutiques').value;
+  document.getElementById('step2').style.display='none';
+  document.getElementById('step3').style.display='block';
+  updateStepper(3);
+}
+
+function goBack(to){
+  [1,2,3,4].forEach(i=>document.getElementById('step'+i).style.display='none');
+  document.getElementById('step'+to).style.display='block';
+  updateStepper(to);
+}
+
+function selectPlan(plan){
+  selectedPlan=plan;
+  document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('plan-'+plan).classList.add('selected');
+}
+
+async function creerCompte(){
+  hideErr('err3');
+  const btn=document.getElementById('btnFinal');
+  btn.disabled=true;btn.textContent='Création en cours...';
+  try{
+    // Créer le compte Supabase Auth
+    const r=await fetch(`${SUPA_URL}/auth/v1/signup`,{
+      method:'POST',
+      headers:{'apikey':SUPA_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({email:userData.email,password:userData.password,data:{full_name:userData.nom,whatsapp:userData.whatsapp,role:'patron'}})
+    });
+    const data=await r.json();
+    if(!r.ok) throw new Error(data.msg||data.error_description||'Erreur lors de la création du compte');
+
+    // Créer la boutique
+    const token=data.access_token||SUPA_KEY;
+    await fetch(`${SUPA_URL}/rest/v1/boutiques`,{
+      method:'POST',
+      headers:{'apikey':SUPA_KEY,'Authorization':`Bearer ${token}`,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({nom:userData.boutiqueName,adresse:`${userData.quartier}, ${userData.ville}`,user_id:data.user?.id})
+    });
+
+    // Afficher succès
+    document.getElementById('s-nom').textContent=userData.nom;
+    document.getElementById('s-email').textContent=userData.email;
+    document.getElementById('s-boutique').textContent=userData.boutiqueName;
+    document.getElementById('s-forfait').textContent=selectedPlan==='pro'?'Pro — 15 000 FCFA/mois':'Essai gratuit — 7 jours';
+    document.getElementById('step3').style.display='none';
+    document.getElementById('step4').style.display='block';
+    updateStepper(4);
+
+  }catch(e){
+    showErr('err3',e.message);
+    btn.disabled=false;
+    btn.innerHTML='Créer mon compte <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+  }
+}
+</script>
+</body>
+</html>
